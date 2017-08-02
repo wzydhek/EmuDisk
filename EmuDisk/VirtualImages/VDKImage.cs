@@ -195,6 +195,11 @@ namespace EmuDisk
             }
         }
 
+        public override string ToString()
+        {
+            return "VDK";
+        }
+
         #endregion
 
         #region Private Methods

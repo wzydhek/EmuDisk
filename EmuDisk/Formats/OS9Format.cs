@@ -48,6 +48,8 @@ namespace EmuDisk
 
         #region IDiskFormat Members
 
+        #region Public Properties
+
         /// <summary>
         /// Gets an enum value of which disk format this class supports
         /// </summary>
@@ -69,6 +71,17 @@ namespace EmuDisk
                 return this.ValidateOS9();
             }
         }
+
+        #endregion
+
+        #region Public Methods
+
+        public override string ToString()
+        {
+            return "OS9";
+        }
+
+        #endregion
 
         #endregion
 

@@ -218,6 +218,11 @@ namespace EmuDisk
             }
         }
 
+        public new virtual string ToString()
+        {
+            return "Unknown";
+        }
+
         #endregion
 
         #region Stream Public Properties

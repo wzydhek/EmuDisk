@@ -34,5 +34,7 @@ namespace EmuDisk
         void CreateDisk(string filename, int tracks, int heads, int sectors, int sectorsize, byte filldata);
 
         void Close();
+
+        string ToString();
     }
 }

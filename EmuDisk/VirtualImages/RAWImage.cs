@@ -75,5 +75,14 @@ namespace EmuDisk
         }
 
         #endregion
+
+        #region Public Methods
+
+        public override string ToString()
+        {
+            return "RAW";
+        }
+
+        #endregion
     }
 }

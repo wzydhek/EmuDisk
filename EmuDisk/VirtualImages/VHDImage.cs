@@ -124,6 +124,11 @@ namespace EmuDisk
             }
         }
 
+        public override string ToString()
+        {
+            return "VHD";
+        }
+
         #endregion
 
         #region Private Methods

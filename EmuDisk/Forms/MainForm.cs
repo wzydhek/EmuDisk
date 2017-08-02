@@ -219,6 +219,8 @@ namespace EmuDisk
                 MessageBox.Show(string.Format(resourceManager.GetString("MainForm_NotValidDiskImage", cultureInfo), filename), resourceManager.GetString("MainForm_NotValidDiskImageCaption", cultureInfo), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            diskimage.SetPartition(0);
+
             diskformat = new OS9Format(diskimage);
             if (diskformat == null || !diskformat.IsValidFormat)
             {

@@ -254,6 +254,11 @@ namespace EmuDisk
             }
         }
 
+        public override string ToString()
+        {
+            return "DMK";
+        }
+
         #endregion
 
         #region Private Methods

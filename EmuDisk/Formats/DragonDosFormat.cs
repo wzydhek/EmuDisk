@@ -219,6 +219,8 @@ namespace EmuDisk
 
         #region IDiskFormat Members
 
+        #region Public Properties
+
         /// <summary>
         /// Gets an enum value of which disk format this class supports
         /// </summary>
@@ -240,6 +242,17 @@ namespace EmuDisk
                 return this.ValidateDragonDos();
             }
         }
+
+        #endregion
+
+        #region Public Methods
+
+        public override string ToString()
+        {
+            return "DRAGON";
+        }
+
+        #endregion
 
         #endregion
 

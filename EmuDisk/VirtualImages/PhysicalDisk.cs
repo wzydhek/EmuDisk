@@ -270,6 +270,11 @@ namespace EmuDisk
 
         }
 
+        public override string ToString()
+        {
+            return "Floppy";
+        }
+
         #endregion
 
         #region Private Methods

@@ -46,5 +46,6 @@ namespace EmuDisk
         /// </summary>
         int LogicalSectorSize { get; }
 
+        string ToString();
     }
 }

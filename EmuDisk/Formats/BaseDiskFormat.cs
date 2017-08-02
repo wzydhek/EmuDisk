@@ -64,5 +64,14 @@ namespace EmuDisk
         public int LogicalSectorSize { get; set; }
 
         #endregion
+
+        #region Public Methods
+
+        public new virtual string ToString()
+        {
+            return "Unknown";
+        }
+
+        #endregion
     }
 }

@@ -52,11 +52,22 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Gets or sets the Partition Menu Items for this instance
-        /// </summary>
-        public ToolStripMenuItem PartitionItems { get; set; }
+        #endregion
+
+        #region Form Events
+
+        private void DiskViewForm_Load(object sender, EventArgs e)
+        {
+            toolStripStatusLabel1.Text = this.diskFormat.DiskImage.ToString();
+            toolStripStatusLabel2.Text = this.diskFormat.ToString();
+        }
+
+        private void DiskViewForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.diskFormat.DiskImage.Close();
+        }
 
         #endregion
+
     }
 }

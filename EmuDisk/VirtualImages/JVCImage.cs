@@ -222,6 +222,11 @@ namespace EmuDisk
             }
         }
 
+        public override string ToString()
+        {
+            return "JVC";
+        }
+
         #endregion
 
         #region Private Methods

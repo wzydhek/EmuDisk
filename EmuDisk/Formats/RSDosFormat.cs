@@ -81,6 +81,15 @@ namespace EmuDisk
 
         #endregion
 
+        #region Public Methods
+
+        public override string ToString()
+        {
+            return "RSDOS";
+        }
+
+        #endregion
+
         #endregion
 
         #region Private Methods
