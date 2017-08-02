@@ -1,0 +1,16 @@
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\bin\Debug\EmuDisk.exe.config
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\bin\Debug\EmuDisk.exe
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\bin\Debug\EmuDisk.pdb
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.csprojResolveAssemblyReference.cache
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.MainForm.resources
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.Properties.Resources.resources
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.csproj.GenerateResource.Cache
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.exe
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.pdb
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.AboutBox1.resources
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\bin\Debug\en\EmuDisk.resources.dll
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.Resource.Resource.en.resources
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\en\EmuDisk.resources.dll
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\bin\Debug\es\EmuDisk.resources.dll
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.Resource.Resource.es.resources
+c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\es\EmuDisk.resources.dll
