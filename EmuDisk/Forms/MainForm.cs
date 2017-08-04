@@ -105,14 +105,6 @@ namespace EmuDisk
 
         #region Public Methods
 
-        /// <summary>
-        /// Static InputBox provider
-        /// </summary>
-        /// <param name="title">Caption of InputBox</param>
-        /// <param name="promptText">Prompt asking for information</param>
-        /// <param name="maxLength">Maximum length of requested input</param>
-        /// <param name="value">Variable to store result in</param>
-        /// <returns>Dialog result of the InputBox</returns>
         public static DialogResult InputBox(string title, string promptText, int maxLength, ref string value)
         {
             Form form = new Form();
@@ -484,51 +476,43 @@ namespace EmuDisk
 
         #region Disk menu Events
 
-        /// <summary>
-        /// Disk Information menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuDiskInfo_Click(object sender, EventArgs e)
         {
 
         }
 
-        /// <summary>
-        /// Format Disk menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuDiskFormat_Click(object sender, EventArgs e)
         {
 
         }
 
-        /// <summary>
-        /// Re-label Disk menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
-        private void mnuDiskReLabel_Click(object sender, EventArgs e)
+        private void mnuDiskChangeDiskName_Click(object sender, EventArgs e)
+        {
+            DiskViewForm form = (DiskViewForm)this.ActiveMdiChild;
+            string diskname = form.DiskFormat.DiskImage.DiskLabel;
+
+            DialogResult dr = InputBox("Disk Rename", "Disk Name", 32, ref diskname);
+            if (dr == DialogResult.OK)
+            {
+                if (diskname == "")
+                    diskname = null;
+                form.DiskFormat.DiskImage.DiskLabel = diskname;
+                form.Text = form.DiskFormat.DiskImage.Filename;
+                if (!string.IsNullOrEmpty(diskname))
+                    form.Text += " [" + diskname + "]";
+            }
+        }
+
+        private void mnuDiskChangeVolumename_Click(object sender, EventArgs e)
         {
 
         }
 
-        /// <summary>
-        /// Sector Editor menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuDiskSectorEditor_Click(object sender, EventArgs e)
         {
 
         }
 
-        /// <summary>
-        /// Bootstrap menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuDiskBootstrap_Click(object sender, EventArgs e)
         {
 
@@ -678,6 +662,9 @@ namespace EmuDisk
                 this.mnuDisk.Enabled = true;
                 this.mnuWindow.Enabled = true;
                 this.mnuDiskBootstrap.Enabled = false;
+                this.mnuDiskChangeDiskName.Enabled = false;
+                this.mnuDiskChangeVolumename.Enabled = false;
+
                 DiskViewForm form = (DiskViewForm)this.ActiveMdiChild;
                 if (form != null)
                 {
@@ -689,6 +676,8 @@ namespace EmuDisk
                             this.mnuDiskBootstrap.Enabled = true;
                         }
                     }
+                    if (form.DiskFormat.DiskImage is VDKImage)
+                        this.mnuDiskChangeDiskName.Enabled = true;
                 }
             }
         }

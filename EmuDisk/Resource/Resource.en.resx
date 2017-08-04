@@ -165,8 +165,8 @@
   <data name="MainForm_mnuDiskInfo" xml:space="preserve">
     <value>&amp;Info</value>
   </data>
-  <data name="MainForm_mnuDiskReLabel" xml:space="preserve">
-    <value>Re-&amp;Label</value>
+  <data name="MainForm_mnuDiskChangeDiskName" xml:space="preserve">
+    <value>Change &amp;Disk Name</value>
   </data>
   <data name="MainForm_mnuDiskSectorEditor" xml:space="preserve">
     <value>&amp;Sector Editor</value>
@@ -254,5 +254,8 @@
   </data>
   <data name="MainForm_partitionnotformatted" xml:space="preserve">
     <value>This partition does not have a supported format, would you like to format it?</value>
+  </data>
+  <data name="MainForm_mnuDiskChangeVolumeName" xml:space="preserve">
+    <value>Change &amp;Volume Name</value>
   </data>
 </root>

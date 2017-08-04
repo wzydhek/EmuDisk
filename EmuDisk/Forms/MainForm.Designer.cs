@@ -31,28 +31,29 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuDisk = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuWindow = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuOptions = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFilePhysicalDrive = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFilePhysicalDriveA = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFilePhysicalDriveB = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileNew = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileRecentFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileClose = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFilePhysicalDriveA = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFilePhysicalDriveB = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDisk = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDiskInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDiskFormat = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuDiskReLabel = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDiskChangeDiskName = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDiskChangeVolumename = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDiskSectorEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDiskBootstrap = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindowCloseWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuWindowCascade = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindowTileHorizontal = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWindowTileVertical = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -84,17 +85,117 @@
             this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
             // 
+            // mnuFileOpen
+            // 
+            this.mnuFileOpen.Name = "mnuFileOpen";
+            this.mnuFileOpen.Size = new System.Drawing.Size(147, 22);
+            this.mnuFileOpen.Text = "O&pen";
+            this.mnuFileOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
+            // 
+            // mnuFilePhysicalDrive
+            // 
+            this.mnuFilePhysicalDrive.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuFilePhysicalDriveA,
+            this.mnuFilePhysicalDriveB});
+            this.mnuFilePhysicalDrive.Name = "mnuFilePhysicalDrive";
+            this.mnuFilePhysicalDrive.Size = new System.Drawing.Size(147, 22);
+            this.mnuFilePhysicalDrive.Text = "Physical &Drive";
+            // 
+            // mnuFilePhysicalDriveA
+            // 
+            this.mnuFilePhysicalDriveA.Name = "mnuFilePhysicalDriveA";
+            this.mnuFilePhysicalDriveA.Size = new System.Drawing.Size(115, 22);
+            this.mnuFilePhysicalDriveA.Text = "Drive &A:";
+            this.mnuFilePhysicalDriveA.Click += new System.EventHandler(this.mnuFilePhysicalDriveA_Click);
+            // 
+            // mnuFilePhysicalDriveB
+            // 
+            this.mnuFilePhysicalDriveB.Name = "mnuFilePhysicalDriveB";
+            this.mnuFilePhysicalDriveB.Size = new System.Drawing.Size(115, 22);
+            this.mnuFilePhysicalDriveB.Text = "Drive &B:";
+            this.mnuFilePhysicalDriveB.Click += new System.EventHandler(this.mnuFilePhysicalDriveB_Click);
+            // 
+            // mnuFileNew
+            // 
+            this.mnuFileNew.Name = "mnuFileNew";
+            this.mnuFileNew.Size = new System.Drawing.Size(147, 22);
+            this.mnuFileNew.Text = "&New";
+            this.mnuFileNew.Click += new System.EventHandler(this.mnuFileNew_Click);
+            // 
+            // mnuFileRecentFiles
+            // 
+            this.mnuFileRecentFiles.Name = "mnuFileRecentFiles";
+            this.mnuFileRecentFiles.Size = new System.Drawing.Size(147, 22);
+            this.mnuFileRecentFiles.Text = "Recent Files";
+            // 
+            // mnuFileClose
+            // 
+            this.mnuFileClose.Name = "mnuFileClose";
+            this.mnuFileClose.Size = new System.Drawing.Size(147, 22);
+            this.mnuFileClose.Text = "&Close";
+            this.mnuFileClose.Click += new System.EventHandler(this.mnuFileClose_Click);
+            // 
+            // mnuFileExit
+            // 
+            this.mnuFileExit.Name = "mnuFileExit";
+            this.mnuFileExit.Size = new System.Drawing.Size(147, 22);
+            this.mnuFileExit.Text = "E&xit";
+            this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
+            // 
             // mnuDisk
             // 
             this.mnuDisk.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuDiskInfo,
             this.mnuDiskFormat,
-            this.mnuDiskReLabel,
+            this.mnuDiskChangeDiskName,
+            this.mnuDiskChangeVolumename,
             this.mnuDiskSectorEditor,
             this.mnuDiskBootstrap});
             this.mnuDisk.Name = "mnuDisk";
             this.mnuDisk.Size = new System.Drawing.Size(41, 20);
             this.mnuDisk.Text = "&Disk";
+            // 
+            // mnuDiskInfo
+            // 
+            this.mnuDiskInfo.Name = "mnuDiskInfo";
+            this.mnuDiskInfo.Size = new System.Drawing.Size(193, 22);
+            this.mnuDiskInfo.Text = "&Info";
+            this.mnuDiskInfo.Click += new System.EventHandler(this.mnuDiskInfo_Click);
+            // 
+            // mnuDiskFormat
+            // 
+            this.mnuDiskFormat.Name = "mnuDiskFormat";
+            this.mnuDiskFormat.Size = new System.Drawing.Size(193, 22);
+            this.mnuDiskFormat.Text = "For&mat";
+            this.mnuDiskFormat.Click += new System.EventHandler(this.mnuDiskFormat_Click);
+            // 
+            // mnuDiskChangeDiskName
+            // 
+            this.mnuDiskChangeDiskName.Name = "mnuDiskChangeDiskName";
+            this.mnuDiskChangeDiskName.Size = new System.Drawing.Size(193, 22);
+            this.mnuDiskChangeDiskName.Text = "Change &Disk Name";
+            this.mnuDiskChangeDiskName.Click += new System.EventHandler(this.mnuDiskChangeDiskName_Click);
+            // 
+            // mnuDiskChangeVolumename
+            // 
+            this.mnuDiskChangeVolumename.Name = "mnuDiskChangeVolumename";
+            this.mnuDiskChangeVolumename.Size = new System.Drawing.Size(193, 22);
+            this.mnuDiskChangeVolumename.Text = "Change &Volume Name";
+            this.mnuDiskChangeVolumename.Click += new System.EventHandler(this.mnuDiskChangeVolumename_Click);
+            // 
+            // mnuDiskSectorEditor
+            // 
+            this.mnuDiskSectorEditor.Name = "mnuDiskSectorEditor";
+            this.mnuDiskSectorEditor.Size = new System.Drawing.Size(193, 22);
+            this.mnuDiskSectorEditor.Text = "&Sector Editor";
+            this.mnuDiskSectorEditor.Click += new System.EventHandler(this.mnuDiskSectorEditor_Click);
+            // 
+            // mnuDiskBootstrap
+            // 
+            this.mnuDiskBootstrap.Name = "mnuDiskBootstrap";
+            this.mnuDiskBootstrap.Size = new System.Drawing.Size(193, 22);
+            this.mnuDiskBootstrap.Text = "&Bootstrap";
+            this.mnuDiskBootstrap.Click += new System.EventHandler(this.mnuDiskBootstrap_Click);
             // 
             // mnuWindow
             // 
@@ -107,6 +208,39 @@
             this.mnuWindow.Name = "mnuWindow";
             this.mnuWindow.Size = new System.Drawing.Size(63, 20);
             this.mnuWindow.Text = "&Window";
+            // 
+            // mnuWindowCloseWindow
+            // 
+            this.mnuWindowCloseWindow.Name = "mnuWindowCloseWindow";
+            this.mnuWindowCloseWindow.Size = new System.Drawing.Size(151, 22);
+            this.mnuWindowCloseWindow.Text = "C&lose Window";
+            this.mnuWindowCloseWindow.Click += new System.EventHandler(this.mnuWindowCloseWindow_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(148, 6);
+            // 
+            // mnuWindowCascade
+            // 
+            this.mnuWindowCascade.Name = "mnuWindowCascade";
+            this.mnuWindowCascade.Size = new System.Drawing.Size(151, 22);
+            this.mnuWindowCascade.Text = "&Cascade";
+            this.mnuWindowCascade.Click += new System.EventHandler(this.mnuWindowCascade_Click);
+            // 
+            // mnuWindowTileHorizontal
+            // 
+            this.mnuWindowTileHorizontal.Name = "mnuWindowTileHorizontal";
+            this.mnuWindowTileHorizontal.Size = new System.Drawing.Size(151, 22);
+            this.mnuWindowTileHorizontal.Text = "Tile Hori&zontal";
+            this.mnuWindowTileHorizontal.Click += new System.EventHandler(this.mnuWindowTileHorizontal_Click);
+            // 
+            // mnuWindowTileVertical
+            // 
+            this.mnuWindowTileVertical.Name = "mnuWindowTileVertical";
+            this.mnuWindowTileVertical.Size = new System.Drawing.Size(151, 22);
+            this.mnuWindowTileVertical.Text = "Tile &Vertical";
+            this.mnuWindowTileVertical.Click += new System.EventHandler(this.mnuWindowTileVertical_Click);
             // 
             // mnuOptions
             // 
@@ -124,135 +258,10 @@
             this.mnuHelp.Size = new System.Drawing.Size(44, 20);
             this.mnuHelp.Text = "&Help";
             // 
-            // mnuFileOpen
-            // 
-            this.mnuFileOpen.Name = "mnuFileOpen";
-            this.mnuFileOpen.Size = new System.Drawing.Size(152, 22);
-            this.mnuFileOpen.Text = "O&pen";
-            this.mnuFileOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
-            // 
-            // mnuFilePhysicalDrive
-            // 
-            this.mnuFilePhysicalDrive.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFilePhysicalDriveA,
-            this.mnuFilePhysicalDriveB});
-            this.mnuFilePhysicalDrive.Name = "mnuFilePhysicalDrive";
-            this.mnuFilePhysicalDrive.Size = new System.Drawing.Size(152, 22);
-            this.mnuFilePhysicalDrive.Text = "Physical &Drive";
-            // 
-            // mnuFileNew
-            // 
-            this.mnuFileNew.Name = "mnuFileNew";
-            this.mnuFileNew.Size = new System.Drawing.Size(152, 22);
-            this.mnuFileNew.Text = "&New";
-            this.mnuFileNew.Click += new System.EventHandler(this.mnuFileNew_Click);
-            // 
-            // mnuFileRecentFiles
-            // 
-            this.mnuFileRecentFiles.Name = "mnuFileRecentFiles";
-            this.mnuFileRecentFiles.Size = new System.Drawing.Size(152, 22);
-            this.mnuFileRecentFiles.Text = "Recent Files";
-            // 
-            // mnuFileClose
-            // 
-            this.mnuFileClose.Name = "mnuFileClose";
-            this.mnuFileClose.Size = new System.Drawing.Size(152, 22);
-            this.mnuFileClose.Text = "&Close";
-            this.mnuFileClose.Click += new System.EventHandler(this.mnuFileClose_Click);
-            // 
-            // mnuFileExit
-            // 
-            this.mnuFileExit.Name = "mnuFileExit";
-            this.mnuFileExit.Size = new System.Drawing.Size(152, 22);
-            this.mnuFileExit.Text = "E&xit";
-            this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
-            // 
-            // mnuFilePhysicalDriveA
-            // 
-            this.mnuFilePhysicalDriveA.Name = "mnuFilePhysicalDriveA";
-            this.mnuFilePhysicalDriveA.Size = new System.Drawing.Size(152, 22);
-            this.mnuFilePhysicalDriveA.Text = "Drive &A:";
-            this.mnuFilePhysicalDriveA.Click += new System.EventHandler(this.mnuFilePhysicalDriveA_Click);
-            // 
-            // mnuFilePhysicalDriveB
-            // 
-            this.mnuFilePhysicalDriveB.Name = "mnuFilePhysicalDriveB";
-            this.mnuFilePhysicalDriveB.Size = new System.Drawing.Size(152, 22);
-            this.mnuFilePhysicalDriveB.Text = "Drive &B:";
-            this.mnuFilePhysicalDriveB.Click += new System.EventHandler(this.mnuFilePhysicalDriveB_Click);
-            // 
-            // mnuDiskInfo
-            // 
-            this.mnuDiskInfo.Name = "mnuDiskInfo";
-            this.mnuDiskInfo.Size = new System.Drawing.Size(152, 22);
-            this.mnuDiskInfo.Text = "&Info";
-            this.mnuDiskInfo.Click += new System.EventHandler(this.mnuDiskInfo_Click);
-            // 
-            // mnuDiskFormat
-            // 
-            this.mnuDiskFormat.Name = "mnuDiskFormat";
-            this.mnuDiskFormat.Size = new System.Drawing.Size(152, 22);
-            this.mnuDiskFormat.Text = "For&mat";
-            this.mnuDiskFormat.Click += new System.EventHandler(this.mnuDiskFormat_Click);
-            // 
-            // mnuDiskReLabel
-            // 
-            this.mnuDiskReLabel.Name = "mnuDiskReLabel";
-            this.mnuDiskReLabel.Size = new System.Drawing.Size(152, 22);
-            this.mnuDiskReLabel.Text = "Re-&Label";
-            this.mnuDiskReLabel.Click += new System.EventHandler(this.mnuDiskReLabel_Click);
-            // 
-            // mnuDiskSectorEditor
-            // 
-            this.mnuDiskSectorEditor.Name = "mnuDiskSectorEditor";
-            this.mnuDiskSectorEditor.Size = new System.Drawing.Size(152, 22);
-            this.mnuDiskSectorEditor.Text = "&Sector Editor";
-            this.mnuDiskSectorEditor.Click += new System.EventHandler(this.mnuDiskSectorEditor_Click);
-            // 
-            // mnuDiskBootstrap
-            // 
-            this.mnuDiskBootstrap.Name = "mnuDiskBootstrap";
-            this.mnuDiskBootstrap.Size = new System.Drawing.Size(152, 22);
-            this.mnuDiskBootstrap.Text = "&Bootstrap";
-            this.mnuDiskBootstrap.Click += new System.EventHandler(this.mnuDiskBootstrap_Click);
-            // 
-            // mnuWindowCloseWindow
-            // 
-            this.mnuWindowCloseWindow.Name = "mnuWindowCloseWindow";
-            this.mnuWindowCloseWindow.Size = new System.Drawing.Size(152, 22);
-            this.mnuWindowCloseWindow.Text = "C&lose Window";
-            this.mnuWindowCloseWindow.Click += new System.EventHandler(this.mnuWindowCloseWindow_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // mnuWindowCascade
-            // 
-            this.mnuWindowCascade.Name = "mnuWindowCascade";
-            this.mnuWindowCascade.Size = new System.Drawing.Size(152, 22);
-            this.mnuWindowCascade.Text = "&Cascade";
-            this.mnuWindowCascade.Click += new System.EventHandler(this.mnuWindowCascade_Click);
-            // 
-            // mnuWindowTileHorizontal
-            // 
-            this.mnuWindowTileHorizontal.Name = "mnuWindowTileHorizontal";
-            this.mnuWindowTileHorizontal.Size = new System.Drawing.Size(152, 22);
-            this.mnuWindowTileHorizontal.Text = "Tile Hori&zontal";
-            this.mnuWindowTileHorizontal.Click += new System.EventHandler(this.mnuWindowTileHorizontal_Click);
-            // 
-            // mnuWindowTileVertical
-            // 
-            this.mnuWindowTileVertical.Name = "mnuWindowTileVertical";
-            this.mnuWindowTileVertical.Size = new System.Drawing.Size(152, 22);
-            this.mnuWindowTileVertical.Text = "Tile &Vertical";
-            this.mnuWindowTileVertical.Click += new System.EventHandler(this.mnuWindowTileVertical_Click);
-            // 
             // mnuHelpAbout
             // 
             this.mnuHelpAbout.Name = "mnuHelpAbout";
-            this.mnuHelpAbout.Size = new System.Drawing.Size(152, 22);
+            this.mnuHelpAbout.Size = new System.Drawing.Size(107, 22);
             this.mnuHelpAbout.Text = "&About";
             this.mnuHelpAbout.Click += new System.EventHandler(this.mnuHelpAbout_Click);
             // 
@@ -296,7 +305,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuFileExit;
         private System.Windows.Forms.ToolStripMenuItem mnuDiskInfo;
         private System.Windows.Forms.ToolStripMenuItem mnuDiskFormat;
-        private System.Windows.Forms.ToolStripMenuItem mnuDiskReLabel;
+        private System.Windows.Forms.ToolStripMenuItem mnuDiskChangeDiskName;
         private System.Windows.Forms.ToolStripMenuItem mnuDiskSectorEditor;
         private System.Windows.Forms.ToolStripMenuItem mnuDiskBootstrap;
         private System.Windows.Forms.ToolStripMenuItem mnuWindowCloseWindow;
@@ -305,6 +314,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuWindowTileHorizontal;
         private System.Windows.Forms.ToolStripMenuItem mnuWindowTileVertical;
         private System.Windows.Forms.ToolStripMenuItem mnuHelpAbout;
+        private System.Windows.Forms.ToolStripMenuItem mnuDiskChangeVolumename;
     }
 }
 

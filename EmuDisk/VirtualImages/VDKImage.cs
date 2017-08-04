@@ -193,12 +193,15 @@ namespace EmuDisk
                     byte[] newheader = new byte[namelength + 12];
                     Array.Copy(header, 0, newheader, 0, 12);
                     Array.Copy(namebytes, 0, newheader, 12, namelength);
-                    header[11] = (byte)((namelength << 3) + header[11] & (0x3));
+                    newheader[11] = (byte)((namelength << 3) + (header[11] & (0x3)));
+                    newheader[2] = (byte)(newheader.Length & 0xff);
+                    newheader[3] = (byte)(newheader.Length >> 8);
+                    header = newheader;
                 }
 
                 string ext = Path.GetExtension(this.Filename);
                 string tmpfile = Path.GetDirectoryName(this.Filename) + "\\" + Path.GetFileNameWithoutExtension(this.Filename) + ".tmp";
-                Stream newfile = File.Open(tmpfile, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
+                Stream newfile = File.Open(tmpfile, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.Read);
                 newfile.Write(header, 0, header.Length);
                 this.baseStream.Seek(HeaderLength, SeekOrigin.Begin);
                 byte[] olddisk = new byte[(int)this.baseStream.Length - HeaderLength];
