@@ -124,6 +124,14 @@ namespace EmuDisk
             }
         }
 
+        public override Geometry DiskGeometry
+        {
+            get
+            {
+                return new Geometry(Partitions, PhysicalTracks, PhysicalHeads, PhysicalSectors, PhysicalSectorSize, header[0] == 0xff);
+            }
+        }
+
         #endregion
 
         #region Public Methods

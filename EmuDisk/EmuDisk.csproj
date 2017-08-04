@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\SectorNotFoundException.cs" />
+    <Compile Include="Structures\Geometry.cs" />
+    <Compile Include="Utility\ListViewColumnSorter.cs" />
     <Compile Include="Utility\Crc16.cs" />
     <Compile Include="VirtualImages\DiskImageTypes.cs" />
     <Compile Include="Formats\DragonDosFormat.cs" />

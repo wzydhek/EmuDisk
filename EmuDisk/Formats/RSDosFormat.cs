@@ -57,9 +57,6 @@ namespace EmuDisk
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets an enum value of which disk format this class supports
-        /// </summary>
         public DiskFormatTypes DiskFormat
         {
             get
@@ -68,14 +65,50 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Gets a value indicating whether the disk represented is in a valid format for this class
-        /// </summary>
         public bool IsValidFormat
         {
             get
             {
                 return this.ValidateRSDOS();
+            }
+        }
+
+        public override int FreeSpace
+        {
+            get
+            {
+                byte[] granuleMap = this.DiskImage.ReadSector(17, 0, 2);
+
+                int granuleCount = ((this.LogicalTracks * this.LogicalHeads) - 1) * 2;
+                if (granuleCount > 0x79)
+                {
+                    granuleCount = 0x79;
+                }
+
+                int freeGranuleCount = 0;
+                for (int i = 0; i < granuleCount; i++)
+                {
+                    if (granuleMap[i] == 0xff)
+                    {
+                        freeGranuleCount++;
+                    }
+                }
+
+                return freeGranuleCount * 9 * this.LogicalSectorSize;
+            }
+        }
+
+        public override int TotalSpace
+        {
+            get
+            {
+                int granuleCount = ((this.LogicalTracks * this.LogicalHeads) - 1) * 2;
+                if (granuleCount > 0x79)
+                {
+                    granuleCount = 0x79;
+                }
+
+                return granuleCount * 9 * this.LogicalSectorSize;
             }
         }
 

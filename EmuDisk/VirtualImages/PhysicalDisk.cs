@@ -221,6 +221,14 @@ namespace EmuDisk
             }
         }
 
+        public virtual Geometry DiskGeometry
+        {
+            get
+            {
+                return new Geometry(Partitions, PhysicalTracks, PhysicalHeads, PhysicalSectors, PhysicalSectorSize, false);
+            }
+        }
+
         #endregion
 
         #region Public IDiskImage Methods

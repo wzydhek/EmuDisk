@@ -243,6 +243,23 @@ namespace EmuDisk
             }
         }
 
+        public override int FreeSpace
+        {
+            get
+            {
+                return this.GetFreeSectors(this.DiskImage.ReadSector(20, 0, 1), this.DiskImage.ReadSector(20, 1, 1)) * this.LogicalSectorSize;
+            }
+        }
+
+        public override int TotalSpace
+        {
+            get
+            {
+                byte[] bitmap0 = this.DiskImage.ReadSector(20, 0, 1);
+                return bitmap0[0xfc] * bitmap0[0xfd] * this.LogicalSectorSize;
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -275,7 +292,7 @@ namespace EmuDisk
                 this.LogicalHeads = 2;
             }
 
-            if (bitmap0[0xfe] != ~bitmap0[0xfc] || bitmap0[0xff] != ~bitmap0[0xfd])
+            if (bitmap0[0xfe] != (~bitmap0[0xfc] & 0xff) || bitmap0[0xff] != (~bitmap0[0xfd] & 0xff))
             {
                 return false;
             }
@@ -291,6 +308,30 @@ namespace EmuDisk
             }
 
             return true;
+        }
+
+        private int GetFreeSectors(byte[] bitmap0, byte[] bitmap1)
+        {
+            int freeLSNs = 0;
+
+            for (int i = 0; i < 40 * this.LogicalHeads * this.LogicalSectors; i++)
+            {
+                byte b = bitmap0[i / 8];
+                b >>= i % 8;
+                freeLSNs += b & 1;
+            }
+
+            if (this.LogicalTracks == 80)
+            {
+                for (int i = 0; i < 40 * this.LogicalHeads * this.LogicalSectors; i++)
+                {
+                    byte b = bitmap1[i / 8];
+                    b >>= i % 8;
+                    freeLSNs += b & 1;
+                }
+            }
+
+            return freeLSNs;
         }
 
         #endregion

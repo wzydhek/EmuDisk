@@ -13,9 +13,6 @@ namespace EmuDisk
     {
         #region Private Fields
 
-        /// <summary>
-        /// Logical sector 0, contains disk configuration information
-        /// </summary>
         private LSN0 lsn0;
 
         #endregion
@@ -50,9 +47,6 @@ namespace EmuDisk
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets an enum value of which disk format this class supports
-        /// </summary>
         public DiskFormatTypes DiskFormat
         {
             get
@@ -61,14 +55,28 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Gets a value indicating whether the disk represented is in a valid format for this class
-        /// </summary>
         public bool IsValidFormat
         {
             get
             {
                 return this.ValidateOS9();
+            }
+        }
+
+        public override int FreeSpace
+        {
+            get
+            {
+                byte[] bitmap = this.GetBitmap();
+                return this.GetFreeClusers(bitmap) * this.LogicalSectorSize * this.lsn0.ClusterSize;
+            }
+        }
+
+        public override int TotalSpace
+        {
+            get
+            {
+                return lsn0.TotalSectors * this.LogicalSectorSize;
             }
         }
 
@@ -134,13 +142,6 @@ namespace EmuDisk
                 Array.Copy(data, bufferOffset, buffer, 0, this.LogicalSectorSize);
                 WriteLSN(lsn + i, buffer);
             }
-        }
-
-        private byte[] GetBitmap()
-        {
-            byte[] bitmap = new byte[this.lsn0.MapBytes].Initialize(0xff);
-            int bitmapSectors = (this.lsn0.MapBytes + (this.LogicalSectorSize - 1)) / this.LogicalSectorSize;
-            return this.ReadLSNs(1, bitmapSectors);
         }
 
         private bool ValidateOS9()
@@ -214,6 +215,27 @@ namespace EmuDisk
             }
 
             return true;
+        }
+
+        private byte[] GetBitmap()
+        {
+            byte[] bitmap = new byte[this.lsn0.MapBytes].Initialize(0xff);
+            int bitmapSectors = (this.lsn0.MapBytes + (this.LogicalSectorSize - 1)) / this.LogicalSectorSize;
+            return this.ReadLSNs(1, bitmapSectors);
+        }
+
+        private int GetFreeClusers(byte[] bitmap)
+        {
+            int freeLSNs = 0;
+
+            for (int i = 0; i < this.lsn0.TotalSectors; i++)
+            {
+                byte b = bitmap[i / 8];
+                b >>= 7 - (i % 8);
+                freeLSNs += ~b & 1;
+            }
+
+            return freeLSNs;
         }
 
         #endregion

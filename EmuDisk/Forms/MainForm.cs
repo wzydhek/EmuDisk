@@ -207,6 +207,7 @@ namespace EmuDisk
                     diskimage = new JVCImage(filename);
                     if (!diskimage.IsValidImage)
                     {
+                        diskimage.Close();
                         diskimage = new DMKImage(filename);
                     }
 
@@ -215,6 +216,7 @@ namespace EmuDisk
 
             if (diskimage == null || !diskimage.IsValidImage)
             {
+                diskimage.Close();
                 this.mruManager.Remove(filename);
                 MessageBox.Show(string.Format(resourceManager.GetString("MainForm_NotValidDiskImage", cultureInfo), filename), resourceManager.GetString("MainForm_NotValidDiskImageCaption", cultureInfo), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -678,12 +680,15 @@ namespace EmuDisk
                 this.mnuWindow.Enabled = true;
                 this.mnuDiskBootstrap.Enabled = false;
                 DiskViewForm form = (DiskViewForm)this.ActiveMdiChild;
-                if (form.DiskFormat.DiskFormat == DiskFormatTypes.OS9Format)
+                if (form != null)
                 {
-                    OS9Format diskformat = (OS9Format)form.DiskFormat;
-                    if (diskformat.Lsn0.BootStrap != 0)
+                    if (form.DiskFormat.DiskFormat == DiskFormatTypes.OS9Format)
                     {
-                        this.mnuDiskBootstrap.Enabled = true;
+                        OS9Format diskformat = (OS9Format)form.DiskFormat;
+                        if (diskformat.Lsn0.BootStrap != 0)
+                        {
+                            this.mnuDiskBootstrap.Enabled = true;
+                        }
                     }
                 }
             }

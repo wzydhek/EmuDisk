@@ -130,6 +130,14 @@ namespace EmuDisk
             }
         }
 
+        public virtual Geometry DiskGeometry
+        {
+            get
+            {
+                return new Geometry(Partitions, PhysicalTracks, PhysicalHeads, PhysicalSectors, PhysicalSectorSize, false);
+            }
+        }
+        
         #endregion
 
         #region IDiskImage Public Methods
@@ -348,6 +356,11 @@ namespace EmuDisk
             {
                 this.baseStream.Write(buffer, offset, count);
             }
+        }
+
+        public override void Close()
+        {
+            this.baseStream.Close();
         }
 
         #endregion

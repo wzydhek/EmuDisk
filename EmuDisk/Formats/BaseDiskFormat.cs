@@ -63,6 +63,16 @@ namespace EmuDisk
         /// </summary>
         public int LogicalSectorSize { get; set; }
 
+        public virtual int FreeSpace
+        {
+            get { return 0; }
+        }
+
+        public virtual int TotalSpace
+        {
+            get { return 0; }
+        }
+
         #endregion
 
         #region Public Methods

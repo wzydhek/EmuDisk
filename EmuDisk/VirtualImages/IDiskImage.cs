@@ -22,6 +22,7 @@ namespace EmuDisk
         int PhysicalSectors { get; }
         int PhysicalSectorSize { get; }
         int Partitions { get; set; }
+        Geometry DiskGeometry { get; }
 
         void SetPartition(int partition);
         byte[] ReadBytes(int offset, int length);
