@@ -1,52 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace EmuDisk
 {
     static class Program
     {
-        /// <summary>
-        /// MainForm instance
-        /// </summary>
-        private static MainForm form;
-
-        /// <summary>
-        /// Singleton Form Delegate
-        /// </summary>
-        /// <param name="arg">String arguments passed to application</param>
         public delegate void FormDelegate(string arg);
+        private static MainForm form = null;
 
-        /// <summary>
-        /// Singleton Receiver
-        /// </summary>
-        /// <param name="args">String arguments passed to application</param>
-        public static void MyReceive(string[] args)
+        static void myReceive(string[] args)
         {
             for (int i = 0; i < args.Length; i++)
             {
                 form.BeginInvoke(new FormDelegate(DelegateMethod), args[i]);
             }
         }
-
-        /// <summary>
-        /// Singleton handler
-        /// </summary>
-        /// <param name="arg">String arguments passed to application</param>
-        public static void DelegateMethod(string arg)
+        static void DelegateMethod(string arg)
         {
             form.OpenDiskView(arg);
         }
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            if (SingletonController.IamFirst(new SingletonController.ReceiveDelegate(MyReceive)))
+            if (SingletonController.IamFirst(new SingletonController.ReceiveDelegate(myReceive)))
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -69,5 +49,6 @@ namespace EmuDisk
 
             SingletonController.Cleanup();
         }
+
     }
 }

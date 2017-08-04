@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
@@ -16,48 +15,24 @@ namespace EmuDisk
     [Serializable]
     internal class SingletonController : MarshalByRefObject
     {
-        /// <summary>
-        /// Receiver Delegate
-        /// </summary>
-        private static ReceiveDelegate receive = null;
+        private static TcpChannel m_TCPChannel = null;
+        private static Mutex m_Mutex = null;
 
-        /// <summary>
-        /// TCP Channel
-        /// </summary>
-        private static TcpChannel tcpChannel = null;
-
-        /// <summary>
-        /// Threading Mutex
-        /// </summary>
-        private static Mutex mutex = null;
-
-        /// <summary>
-        /// Receiver Delegate
-        /// </summary>
-        /// <param name="args">Arguments passed to application</param>
         public delegate void ReceiveDelegate(string[] args);
 
-        /// <summary>
-        /// Gets or sets the receiver delegate
-        /// </summary>
-        public static ReceiveDelegate Receiver
+        static private ReceiveDelegate m_Receive = null;
+        static public ReceiveDelegate Receiver
         {
             get
             {
-                return receive;
+                return m_Receive;
             }
-
             set
             {
-                receive = value;
+                m_Receive = value;
             }
         }
 
-        /// <summary>
-        /// Checks to see if this is the first call to the application
-        /// </summary>
-        /// <param name="r">Receiver Delegate</param>
-        /// <returns>True if this is the first call</returns>
         public static bool IamFirst(ReceiveDelegate r)
         {
             if (IamFirst())
@@ -71,56 +46,55 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Checks to see if this is the first call to the application
-        /// </summary>
-        /// <returns>True if this is the first call</returns>
         public static bool IamFirst()
         {
-            string uniqueIdentifier;
-            string assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName(false).CodeBase;
-            uniqueIdentifier = assemblyName.Replace("\\", "_");
+            //string m_UniqueIdentifier;
+            //string assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName(false).CodeBase;
+            //m_UniqueIdentifier = assemblyName.Replace("\\", "_");
 
-            mutex = new Mutex(false, uniqueIdentifier);
+            m_Mutex = new Mutex(false, "{0A002695-3B03-4FC9-9C9D-A8FF5B5FCA30}");
 
-            if (mutex.WaitOne(1, true))
+            if (m_Mutex.WaitOne(1, true))
             {
-                // We locked it! We are the first instance!!!    
+                //We locked it! We are the first instance!!!    
                 CreateInstanceChannel();
                 return true;
             }
             else
             {
-                // Not the first instance!!!
-                mutex.Close();
-                mutex = null;
+                //Not the first instance!!!
+                m_Mutex.Close();
+                m_Mutex = null;
                 return false;
             }
         }
 
-        /// <summary>
-        /// Cleanup after call
-        /// </summary>
-        public static void Cleanup()
+        private static void CreateInstanceChannel()
         {
-            if (mutex != null)
-            {
-                mutex.Close();
-            }
-
-            if (tcpChannel != null)
-            {
-                tcpChannel.StopListening(null);
-            }
-
-            mutex = null;
-            tcpChannel = null;
+            m_TCPChannel = new TcpChannel(6809);
+            ChannelServices.RegisterChannel(m_TCPChannel, false);
+            RemotingConfiguration.RegisterWellKnownServiceType(
+                Type.GetType("EmuDisk.SingletonController"),
+                "SingletonController",
+                WellKnownObjectMode.SingleCall);
         }
 
-        /// <summary>
-        /// Send passed arguments to existing instance
-        /// </summary>
-        /// <param name="s">String parameters to pass</param>
+        public static void Cleanup()
+        {
+            if (m_Mutex != null)
+            {
+                m_Mutex.Close();
+            }
+
+            if (m_TCPChannel != null)
+            {
+                m_TCPChannel.StopListening(null);
+            }
+
+            m_Mutex = null;
+            m_TCPChannel = null;
+        }
+
         public static void Send(string[] s)
         {
             SingletonController ctrl;
@@ -128,40 +102,22 @@ namespace EmuDisk
             ChannelServices.RegisterChannel(channel, false);
             try
             {
-                ctrl = (SingletonController)Activator.GetObject(typeof(SingletonController), "tcp://localhost:1234/SingletonController");
+                ctrl = (SingletonController)Activator.GetObject(typeof(SingletonController), "tcp://localhost:6809/SingletonController");
             }
             catch (Exception e)
             {
                 Console.WriteLine("Exception: " + e.Message);
                 throw;
             }
-
             ctrl.Receive(s);
         }
 
-        /// <summary>
-        /// Received passed arguments
-        /// </summary>
-        /// <param name="s">String parameters that were passed</param>
         public void Receive(string[] s)
         {
-            if (receive != null)
+            if (m_Receive != null)
             {
-                receive(s);
+                m_Receive(s);
             }
-        }
-
-        /// <summary>
-        /// Create a Singleton Instance channel
-        /// </summary>
-        private static void CreateInstanceChannel()
-        {
-            tcpChannel = new TcpChannel(6309);
-            ChannelServices.RegisterChannel(tcpChannel, false);
-            RemotingConfiguration.RegisterWellKnownServiceType(
-                Type.GetType("EmuDisk.SingletonController"),
-                "SingletonController",
-                WellKnownObjectMode.SingleCall);
         }
     }
 }

@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Resources;
@@ -75,6 +74,7 @@ namespace EmuDisk
 
             this.UpdateMenu();
         }
+
         #endregion
 
         #region Public Properties
@@ -176,7 +176,6 @@ namespace EmuDisk
         /// <param name="filename">Filename to open</param>
         internal void OpenDiskView(string filename)
         {
-            
             IDiskImage diskimage = null;
             IDiskFormat diskformat = null;
 

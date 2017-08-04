@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 
@@ -347,7 +346,11 @@ namespace EmuDisk
 
         public override void SetLength(long value)
         {
-            throw new NotImplementedException();
+            int padding = (int)value - (int)this.Length;
+            padding += headerLength;
+            this.baseStream.Seek(0, SeekOrigin.End);
+            byte[] buffer = new byte[padding];
+            this.baseStream.Write(buffer, 0, padding);
         }
 
         public override void Write(byte[] buffer, int offset, int count)
