@@ -137,6 +137,12 @@ namespace EmuDisk
             }
         }
         
+        public virtual string DiskLabel
+        {
+            get { return null; }
+            set { }
+        }
+
         #endregion
 
         #region IDiskImage Public Methods

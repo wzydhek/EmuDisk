@@ -164,6 +164,55 @@ namespace EmuDisk
             }
         }
 
+        public override string DiskLabel
+        {
+            get
+            {
+                int namelength = header[11] >> 3;
+                if (namelength == 0)
+                    return null;
+                byte[] namebytes = new byte[namelength];
+                Array.Copy(header, 12, namebytes, 0, namelength);
+                string name = Encoding.ASCII.GetString(namebytes);
+                return name;
+            }
+            set
+            {
+                if (value == "" || value == null)
+                {
+                    byte[] newheader = new byte[12];
+                    Array.Copy(header, 0, newheader, 0, 12);
+                    header[11] = (byte)(header[11] & (0x3));
+                }
+                else
+                {
+                    if (value.Length > 32)
+                        value = value.Substring(0, 32);
+                    byte[] namebytes = Encoding.ASCII.GetBytes(value);
+                    int namelength = namebytes.Length;
+                    byte[] newheader = new byte[namelength + 12];
+                    Array.Copy(header, 0, newheader, 0, 12);
+                    Array.Copy(namebytes, 0, newheader, 12, namelength);
+                    header[11] = (byte)((namelength << 3) + header[11] & (0x3));
+                }
+
+                string ext = Path.GetExtension(this.Filename);
+                string tmpfile = Path.GetDirectoryName(this.Filename) + "\\" + Path.GetFileNameWithoutExtension(this.Filename) + ".tmp";
+                Stream newfile = File.Open(tmpfile, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
+                newfile.Write(header, 0, header.Length);
+                this.baseStream.Seek(HeaderLength, SeekOrigin.Begin);
+                byte[] olddisk = new byte[(int)this.baseStream.Length - HeaderLength];
+                this.baseStream.Read(olddisk, 0, olddisk.Length);
+                newfile.Write(olddisk, 0, olddisk.Length);
+                this.baseStream.Close();
+                newfile.Close();
+                File.Delete(this.Filename);
+                File.Move(tmpfile, this.Filename);
+                this.baseStream = File.Open(this.filename, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
+                headerLength = header.Length;
+            }
+        }
+
         #endregion
 
         #region Public Methods

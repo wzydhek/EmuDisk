@@ -64,6 +64,12 @@ namespace EmuDisk
             toolStripStatusLabel3.Text = string.Format("{0}P:{1} T:{2} H:{3} S:{4} SS:{5}", g.WriteProtect ? "[RO] " : "", g.Partitons, g.Tracks, g.Heads, g.Sectors, g.SectorSize);
             toolStripStatusLabel4.Text = string.Format("{0} of {1} bytes free", diskFormat.FreeSpace, diskFormat.TotalSpace);
 
+            this.Text = diskFormat.DiskImage.Filename;
+            if (!string.IsNullOrEmpty(diskFormat.DiskImage.DiskLabel))
+            {
+                this.Text += " [" + diskFormat.DiskImage.DiskLabel + "]";
+            }
+
             treeView.Nodes.Clear();
             listView.Items.Clear();
 

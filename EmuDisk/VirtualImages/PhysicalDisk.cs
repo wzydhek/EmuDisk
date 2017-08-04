@@ -220,12 +220,18 @@ namespace EmuDisk
             }
         }
 
-        public virtual Geometry DiskGeometry
+        public Geometry DiskGeometry
         {
             get
             {
                 return new Geometry(Partitions, PhysicalTracks, PhysicalHeads, PhysicalSectors, PhysicalSectorSize, false);
             }
+        }
+
+        public string DiskLabel
+        {
+            get { return null; }
+            set { }
         }
 
         #endregion
