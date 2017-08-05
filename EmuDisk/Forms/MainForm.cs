@@ -528,7 +528,13 @@ namespace EmuDisk
 
         private void mnuDiskSectorEditor_Click(object sender, EventArgs e)
         {
+            DiskViewForm dv = (DiskViewForm)this.ActiveMdiChild;
+            SectorEditor sv = new SectorEditor(dv.DiskFormat.DiskImage);
+            sv.ShowDialog();
+            if (sv.SectorChanged)
+            {
 
+            }
         }
 
         private void mnuDiskBootstrap_Click(object sender, EventArgs e)

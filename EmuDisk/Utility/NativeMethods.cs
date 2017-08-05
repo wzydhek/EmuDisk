@@ -83,6 +83,15 @@ namespace EmuDisk
 
         #endregion
 
+        // Key definitions
+        internal const int WM_KEYDOWN = 0x100;
+        internal const int WM_KEYUP = 0x101;
+        internal const int WM_CHAR = 0x102;        // Clipboard formats used for cut/copy/drag operations
+        internal const string CFSTR_PREFERREDDROPEFFECT = "Preferred DropEffect";
+        internal const string CFSTR_PERFORMEDDROPEFFECT = "Performed DropEffect";
+        internal const string CFSTR_FILEDESCRIPTORW = "FileGroupDescriptorW";
+        internal const string CFSTR_FILECONTENTS = "FileContents";
+
         #endregion
 
         #region Delegates
@@ -262,6 +271,37 @@ namespace EmuDisk
         internal static extern bool SetWindowText(
             IntPtr hWnd,
             string lpString);
+
+        #endregion
+
+        #region Caret Definitions
+
+        // Caret definitions
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool CreateCaret(
+            IntPtr hWnd,
+            IntPtr hBitmap,
+            int nWidth,
+            int nHeight
+        );
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool ShowCaret(
+            IntPtr hWnd
+        );
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool DestroyCaret();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool SetCaretPos(
+            int X,
+            int Y
+        );
 
         #endregion
 

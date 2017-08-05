@@ -10,6 +10,8 @@ namespace EmuDisk
     /// </summary>
     internal class Util
     {
+        private static bool _designMode;
+
         /// <summary>
         /// <para>
         /// Truncate a path to fit within a certain number of characters 
@@ -152,6 +154,14 @@ namespace EmuDisk
             }
 
             return value;
+        }
+
+        public static bool DesignMode
+        {
+            get
+            {
+                return _designMode;
+            }
         }
     }
 }

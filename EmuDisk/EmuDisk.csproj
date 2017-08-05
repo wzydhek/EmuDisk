@@ -49,7 +49,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utility\DynamicByteProvider.cs" />
+    <Compile Include="Utility\FixedLengthByteProvider.cs" />
+    <Compile Include="Utility\ByteCharConverter.cs" />
+    <Compile Include="Utility\HexCasing.cs" />
+    <Compile Include="Utility\IByteProvider.cs" />
+    <Compile Include="Utility\FindOptions.cs" />
+    <Compile Include="Utility\BuiltInContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utility\BytePositionInfo.cs" />
+    <Compile Include="Utility\HexBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utility\BitInfo.cs" />
+    <Compile Include="Utility\BitControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Utility\BitControl.Designer.cs">
+      <DependentUpon>BitControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Exceptions\SectorNotFoundException.cs" />
+    <Compile Include="Forms\SectorEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SectorEditor.Designer.cs">
+      <DependentUpon>SectorEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Structures\Geometry.cs" />
     <Compile Include="Utility\ListViewColumnSorter.cs" />
     <Compile Include="Utility\Crc16.cs" />
@@ -101,6 +127,9 @@
     <Compile Include="VirtualImages\IDiskImage.cs" />
     <Compile Include="VirtualImages\PhysicalDisk.cs" />
     <Compile Include="VirtualImages\RAWImage.cs" />
+    <EmbeddedResource Include="Utility\BitControl.resx">
+      <DependentUpon>BitControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SectorEditor.resx">
+      <DependentUpon>SectorEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

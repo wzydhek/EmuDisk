@@ -15,3 +15,5 @@ c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\bin\Debug\es
 c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.Resource.Resource.es.resources
 c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\es\EmuDisk.resources.dll
 C:\Users\Walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.DiskViewForm.resources
+C:\Users\Walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.BitControl.resources
+C:\Users\Walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.SectorEditor.resources
