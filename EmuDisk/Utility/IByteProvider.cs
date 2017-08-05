@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmuDisk
 {
@@ -17,12 +13,14 @@ namespace EmuDisk
         /// <param name="index">the index of the byte to read</param>
         /// <returns>the byte to read</returns>
         byte ReadByte(long index);
+ 
         /// <summary>
         /// Writes a byte into the provider
         /// </summary>
         /// <param name="index">the index of the byte to write</param>
         /// <param name="value">the byte to write</param>
         void WriteByte(long index, byte value);
+
         /// <summary>
         /// Inserts bytes into the provider
         /// </summary>
@@ -30,6 +28,7 @@ namespace EmuDisk
         /// <param name="bs"></param>
         /// <remarks>This method must raise the LengthChanged event.</remarks>
         void InsertBytes(long index, byte[] bs);
+
         /// <summary>
         /// Deletes bytes from the provider
         /// </summary>
@@ -42,6 +41,7 @@ namespace EmuDisk
         /// Returns the total length of bytes the byte provider is providing.
         /// </summary>
         long Length { get; }
+
         /// <summary>
         /// Occurs, when the Length property changed.
         /// </summary>
@@ -51,10 +51,12 @@ namespace EmuDisk
         /// True, when changes are done.
         /// </summary>
         bool HasChanges();
+
         /// <summary>
         /// Applies changes.
         /// </summary>
         void ApplyChanges();
+ 
         /// <summary>
         /// Occurs, when bytes are changed.
         /// </summary>
@@ -65,11 +67,13 @@ namespace EmuDisk
         /// </summary>
         /// <returns>True, when it´s supported.</returns>
         bool SupportsWriteByte();
+
         /// <summary>
         /// Returns a value if the InsertBytes methods is supported by the provider.
         /// </summary>
         /// <returns>True, when it´s supported.</returns>
         bool SupportsInsertBytes();
+
         /// <summary>
         /// Returns a value if the DeleteBytes methods is supported by the provider.
         /// </summary>

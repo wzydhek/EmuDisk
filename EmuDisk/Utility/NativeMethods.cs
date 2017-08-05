@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
 
 namespace EmuDisk
 {
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     internal static class NativeMethods
     {
         #region Constants

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 
@@ -238,11 +232,6 @@ namespace EmuDisk
 
         #region Private Methods
 
-        /// <summary>
-        /// Removes the border on the right of the tool strip
-        /// </summary>
-        /// <param name="sender">the renderer</param>
-        /// <param name="e">the event args</param>
         void Renderer_RenderToolStripBorder(object sender, ToolStripRenderEventArgs e)
         {
             if (e.ToolStrip.GetType() != typeof(ToolStrip))

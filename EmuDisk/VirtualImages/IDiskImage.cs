@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EmuDisk
+﻿namespace EmuDisk
 {
-    /// <summary>
-    /// Common interface for All Disk Images.
-    /// </summary>
     public interface IDiskImage
     {
         DiskImageTypes ImageType { get; }

@@ -7,7 +7,6 @@ c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\Em
 c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.csproj.GenerateResource.Cache
 c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.exe
 c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.pdb
-c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.AboutBox1.resources
 c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\bin\Debug\en\EmuDisk.resources.dll
 c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.Resource.Resource.en.resources
 c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\en\EmuDisk.resources.dll
@@ -17,3 +16,4 @@ c:\users\walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\es
 C:\Users\Walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.DiskViewForm.resources
 C:\Users\Walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.BitControl.resources
 C:\Users\Walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.SectorEditor.resources
+C:\Users\Walt\documents\visual studio 2017\Projects\EmuDisk\EmuDisk\obj\Debug\EmuDisk.AboutBox.resources

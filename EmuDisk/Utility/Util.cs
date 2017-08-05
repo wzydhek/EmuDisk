@@ -1,30 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace EmuDisk
 {
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     internal class Util
     {
         private static bool _designMode;
 
-        /// <summary>
-        /// <para>
-        /// Truncate a path to fit within a certain number of characters 
-        /// by replacing path components with ellipses.
-        /// </para>
-        /// <para>
-        /// This solution is provided by CodeProject and GotDotNet C# expert
-        /// Richard Deeming.
-        /// </para>
-        /// </summary>
-        /// <param name="longName">Long file name</param>
-        /// <param name="maxLen">Maximum length</param>
-        /// <returns>Truncated file name</returns>
         public static string GetShortDisplayName(string longName, int maxLen)
         {
             StringBuilder pszOut = new StringBuilder(maxLen + maxLen + 2);  // for safety
@@ -39,11 +21,6 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Gets a high-bit terminated string from an array of bytes
-        /// </summary>
-        /// <param name="bytes">Array of bytes</param>
-        /// <returns>String value</returns>
         public static string GetHighBitString(byte[] bytes)
         {
             StringBuilder sb = new StringBuilder();
@@ -61,11 +38,6 @@ namespace EmuDisk
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Convert an 5 byte array to a DateTime
-        /// </summary>
-        /// <param name="bytes">Array of bytes</param>
-        /// <returns>DateTime structure</returns>
         public static DateTime ModifiedDate(byte[] bytes)
         {
             DateTime date = new DateTime();
@@ -104,21 +76,11 @@ namespace EmuDisk
             return date;
         }
 
-        /// <summary>
-        /// Convert a DateTime structure to a 5 byte array
-        /// </summary>
-        /// <param name="date">DateTime structure</param>
-        /// <returns>5-Byte array</returns>
         public static byte[] ModifiedDateBytes(DateTime date)
         {
             return new byte[] { (byte)(date.Year - 1900), (byte)date.Month, (byte)date.Day, (byte)date.Hour, (byte)date.Minute };
         }
 
-        /// <summary>
-        /// Convert an array of bytes to a 16 bit unsigned integer
-        /// </summary>
-        /// <param name="bytes">Array of bytes</param>
-        /// <returns>New 16 bit unsigned integer</returns>
         public static ushort UInt16(byte[] bytes)
         {
             ushort value = 0;
@@ -135,11 +97,6 @@ namespace EmuDisk
             return value;
         }
 
-        /// <summary>
-        /// Convert Array of bytes to a 24 bit integer
-        /// </summary>
-        /// <param name="bytes">Array of bytes</param>
-        /// <returns>24 bit integer</returns>
         public static int Int24(byte[] bytes)
         {
             int value = 0;

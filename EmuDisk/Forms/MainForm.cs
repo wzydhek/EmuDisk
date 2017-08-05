@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Resources;
@@ -12,36 +7,14 @@ using System.IO;
 
 namespace EmuDisk
 {
-    /// <summary>
-    /// Main Application Form
-    /// </summary>
     public partial class MainForm : Form, IMRUClient
     {
         #region Private Fields
 
-        /// <summary>
-        /// Registry path to store application settings
-        /// </summary>
         private const string RegistryPath = "Software\\Zydhek\\EmuDisk";
-
-        /// <summary>
-        /// Current Culture Information
-        /// </summary>
         private static CultureInfo cultureInfo;
-
-        /// <summary>
-        /// Resource Manager used to get localized strings
-        /// </summary>
         private static ResourceManager resourceManager;
-
-        /// <summary>
-        /// True if FDRAWCMD.SYS driver is installed
-        /// </summary>
         private static bool driverInstalled = PhysicalDisk.DriverInstalled;
-
-        /// <summary>
-        /// MRU List manager
-        /// </summary>
         private MRUManager mruManager;
 
         #endregion
@@ -79,9 +52,6 @@ namespace EmuDisk
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets the current Culture Information
-        /// </summary>
         public static CultureInfo CultureInfo
         {
             get
@@ -90,9 +60,6 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Gets the Resource Manager used to get localized strings
-        /// </summary>
         public static ResourceManager ResourceManager
         {
             get
@@ -105,54 +72,6 @@ namespace EmuDisk
 
         #region Public Methods
 
-        public static DialogResult InputBox(string title, string promptText, int maxLength, ref string value)
-        {
-            Form form = new Form();
-            Label label = new Label();
-            TextBox textBox = new TextBox();
-            Button buttonOk = new Button();
-            Button buttonCancel = new Button();
-
-            form.Text = title;
-            label.Text = promptText;
-            textBox.Text = value;
-
-            buttonOk.Text = resourceManager.GetString("Button_OK", cultureInfo);
-            buttonCancel.Text = resourceManager.GetString("Button_Cancel", cultureInfo);
-            buttonOk.DialogResult = DialogResult.OK;
-            buttonCancel.DialogResult = DialogResult.Cancel;
-
-            label.SetBounds(9, 20, 372, 13);
-            textBox.SetBounds(12, 36, 372, 20);
-            buttonOk.SetBounds(228, 72, 75, 23);
-            buttonCancel.SetBounds(309, 72, 75, 23);
-
-            label.AutoSize = true;
-            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
-            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-
-            textBox.MaxLength = maxLength;
-
-            form.ClientSize = new Size(396, 107);
-            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
-            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
-            form.FormBorderStyle = FormBorderStyle.FixedDialog;
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MinimizeBox = false;
-            form.MaximizeBox = false;
-            form.AcceptButton = buttonOk;
-            form.CancelButton = buttonCancel;
-
-            DialogResult dialogResult = form.ShowDialog();
-            value = textBox.Text;
-            return dialogResult;
-        }
-
-        /// <summary>
-        /// Most Recently Used menu item handler
-        /// </summary>
-        /// <param name="fileName">Selected filename to open</param>
         public void OpenMRUFile(string fileName)
         {
             this.OpenDiskView(fileName);
@@ -162,10 +81,6 @@ namespace EmuDisk
 
         #region Internal Methods
 
-        /// <summary>
-        /// Open virtual disk and display it in a DiskViewForm instance
-        /// </summary>
-        /// <param name="filename">Filename to open</param>
         internal void OpenDiskView(string filename)
         {
             IDiskImage diskimage = null;
@@ -246,21 +161,11 @@ namespace EmuDisk
 
         #region Window Events
 
-        /// <summary>
-        /// Form's Load event handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Load event arguments</param>
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.UpdateMenu();
         }
 
-        /// <summary>
-        /// Form's Drag Enter event handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Drag event arguments</param>
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -273,11 +178,6 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Form's Drag Drop event handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Drag event arguments</param>
         private void MainForm_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -299,11 +199,6 @@ namespace EmuDisk
 
         #region File menu Events
 
-        /// <summary>
-        /// Open File menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuFileOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -320,11 +215,6 @@ namespace EmuDisk
             this.UpdateMenu();
         }
 
-        /// <summary>
-        /// Open Drive A: menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuFilePhysicalDriveA_Click(object sender, EventArgs e)
         {
             PhysicalDisk disk = null;
@@ -374,11 +264,6 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Open Drive B: menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuFilePhysicalDriveB_Click(object sender, EventArgs e)
         {
             PhysicalDisk disk = null;
@@ -428,21 +313,11 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Create New File menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuFileNew_Click(object sender, EventArgs e)
         {
 
         }
 
-        /// <summary>
-        /// Close menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuFileClose_Click(object sender, EventArgs e)
         {
             if (this.ActiveMdiChild != null)
@@ -453,11 +328,6 @@ namespace EmuDisk
             this.UpdateMenu();
         }
 
-        /// <summary>
-        /// Exit Application menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuFileExit_Click(object sender, EventArgs e)
         {
             if (this.MdiChildren.Length != 0)
@@ -546,41 +416,21 @@ namespace EmuDisk
 
         #region Window menu Events
 
-        /// <summary>
-        /// Close Window menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuWindowCloseWindow_Click(object sender, EventArgs e)
         {
             this.mnuFileClose_Click(this, EventArgs.Empty);
         }
 
-        /// <summary>
-        /// Cascade Windows menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuWindowCascade_Click(object sender, EventArgs e)
         {
             this.LayoutMdi(MdiLayout.Cascade);
         }
 
-        /// <summary>
-        /// Tile Windows Horizontally menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuWindowTileHorizontal_Click(object sender, EventArgs e)
         {
             this.LayoutMdi(MdiLayout.TileHorizontal);
         }
 
-        /// <summary>
-        /// Tile Windows Vertically menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuWindowTileVertical_Click(object sender, EventArgs e)
         {
             this.LayoutMdi(MdiLayout.TileVertical);
@@ -590,11 +440,6 @@ namespace EmuDisk
 
         #region Options menu Events
 
-        /// <summary>
-        /// Options menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuOptions_Click(object sender, EventArgs e)
         {
 
@@ -604,14 +449,9 @@ namespace EmuDisk
 
         #region Help menu Events
 
-        /// <summary>
-        /// About menu item handler
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void mnuHelpAbout_Click(object sender, EventArgs e)
         {
-            AboutBox1 aboutBox = new AboutBox1();
+            AboutBox aboutBox = new AboutBox();
             aboutBox.ShowDialog();
         }
 
@@ -621,10 +461,50 @@ namespace EmuDisk
 
         #region Private Methods
 
-        /// <summary>
-        /// Sets new language
-        /// </summary>
-        /// <param name="language">Specified language to change to</param>
+        private static DialogResult InputBox(string title, string promptText, int maxLength, ref string value)
+        {
+            Form form = new Form();
+            Label label = new Label();
+            TextBox textBox = new TextBox();
+            Button buttonOk = new Button();
+            Button buttonCancel = new Button();
+
+            form.Text = title;
+            label.Text = promptText;
+            textBox.Text = value;
+
+            buttonOk.Text = resourceManager.GetString("Button_OK", cultureInfo);
+            buttonCancel.Text = resourceManager.GetString("Button_Cancel", cultureInfo);
+            buttonOk.DialogResult = DialogResult.OK;
+            buttonCancel.DialogResult = DialogResult.Cancel;
+
+            label.SetBounds(9, 20, 372, 13);
+            textBox.SetBounds(12, 36, 372, 20);
+            buttonOk.SetBounds(228, 72, 75, 23);
+            buttonCancel.SetBounds(309, 72, 75, 23);
+
+            label.AutoSize = true;
+            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
+            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+            textBox.MaxLength = maxLength;
+
+            form.ClientSize = new Size(396, 107);
+            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.AcceptButton = buttonOk;
+            form.CancelButton = buttonCancel;
+
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox.Text;
+            return dialogResult;
+        }
+
         private void SetLanguage(string language)
         {
             cultureInfo = CultureInfo.CreateSpecificCulture(language);
@@ -638,10 +518,6 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Update menu text when language has been changed
-        /// </summary>
-        /// <param name="item">Menu item to update</param>
         private void SetMenuText(ToolStripMenuItem item)
         {
             string localizedText;
@@ -669,9 +545,6 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Update the menus
-        /// </summary>
         private void UpdateMenu()
         {
             if (this.MdiChildren.Length == 0)
@@ -710,21 +583,11 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Cleanup after disposing an instance of the DiskViewForm
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void DiskViewForm_Disposed(object sender, EventArgs e)
         {
             this.UpdateMenu();
         }
 
-        /// <summary>
-        /// Update menu when a DiskViewForm is activated
-        /// </summary>
-        /// <param name="sender">Sending object</param>
-        /// <param name="e">Event Arguments</param>
         private void DiskViewForm_Activated(object sender, EventArgs e)
         {
             DiskViewForm form = (DiskViewForm)this.ActiveMdiChild;

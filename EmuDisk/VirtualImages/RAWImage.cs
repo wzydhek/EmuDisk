@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EmuDisk
+﻿namespace EmuDisk
 {
-    /// <summary>
-    /// RAW Disk Image support
-    /// </summary>
     internal class RAWImage : DiskImageBase, IDiskImage
     {
         #region Constructors
@@ -49,20 +41,6 @@ namespace EmuDisk
             this.headerLength = (int)this.Length % 256;
             if (this.HeaderLength != 0)
                 goto NotValid;
-
-            //this.Seek(0);
-            //LSN0 lsn0 = new LSN0(this.ReadSector(0, 0, 1));
-
-            //this.physicalSectors = lsn0.SectorsPerTrack;
-            //this.physicalHeads = ((lsn0.DiskFormat & 0x01) > 0) ? 2 : 1;
-            //if (this.PhysicalHeads != 1 && this.physicalHeads != 2)
-            //    goto NotValid;
-            //this.physicalTracks = lsn0.TotalSectors / this.physicalSectors / this.physicalHeads;
-            //if (lsn0.TotalSectors != this.PhysicalTracks * this.PhysicalSectors * this.PhysicalHeads)
-            //    goto NotValid;
-
-            //if (this.Length != lsn0.TotalSectors * this.PhysicalSectorSize)
-            //    goto NotValid;
 
             this.isValidImage = true;
             return;

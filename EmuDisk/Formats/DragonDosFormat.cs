@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EmuDisk
+﻿namespace EmuDisk
 {
     /// <summary>
     /// <para>
@@ -189,10 +184,6 @@ namespace EmuDisk
     {
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DragonDosFormat"/> class.
-        /// </summary>
-        /// <param name="diskImage">Underlying virtual disk image class</param>
         public DragonDosFormat(IDiskImage diskImage)
         {
             this.DiskImage = diskImage;
@@ -220,9 +211,6 @@ namespace EmuDisk
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets an enum value of which disk format this class supports
-        /// </summary>
         public DiskFormatTypes DiskFormat
         {
             get
@@ -231,9 +219,6 @@ namespace EmuDisk
             }
         }
 
-        /// <summary>
-        /// Gets a value indicating whether the disk represented is in a valid format for this class
-        /// </summary>
         public bool IsValidFormat
         {
             get
@@ -274,10 +259,6 @@ namespace EmuDisk
 
         #region Private Methods
 
-        /// <summary>
-        /// Validate the disk's data is a valid DragonDos format
-        /// </summary>
-        /// <returns>A value specifying the validation was successful or not</returns>
         private bool ValidateDragonDos()
         {
             byte[] bitmap0 = this.DiskImage.ReadSector(20, 0, 1);

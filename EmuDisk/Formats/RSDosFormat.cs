@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace EmuDisk
 {
-    /// <summary>
-    /// RS Dos virtual disk support
-    /// </summary>
     internal class RSDosFormat : BaseDiskFormat, IDiskFormat
     {
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RSDosFormat"/> class.
-        /// </summary>
-        /// <param name="diskImage">Underlying virtual disk image class</param>
         public RSDosFormat(IDiskImage diskImage)
         {
             this.DiskImage = diskImage;
@@ -193,10 +184,6 @@ namespace EmuDisk
             this.DiskImage.WriteSector(track, head, sector, buffer);
         }
 
-        /// <summary>
-        /// Validate the disk's data is a valid RS Dos format
-        /// </summary>
-        /// <returns>A value specifying the validation was successful or not</returns>
         private bool ValidateRSDOS()
         {
             byte[] granuleMap = this.DiskImage.ReadSector(17, 0, 2);

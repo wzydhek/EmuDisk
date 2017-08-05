@@ -15,26 +15,32 @@ namespace EmuDisk
         /// Contains the HexBox control.
         /// </summary>
         HexBox _hexBox;
+
         /// <summary>
         /// Contains the ContextMenuStrip control.
         /// </summary>
         ContextMenuStrip _contextMenuStrip;
+
         /// <summary>
         /// Contains the "Cut"-ToolStripMenuItem object.
         /// </summary>
         ToolStripMenuItem _cutToolStripMenuItem;
+
         /// <summary>
         /// Contains the "Copy"-ToolStripMenuItem object.
         /// </summary>
         ToolStripMenuItem _copyToolStripMenuItem;
+
         /// <summary>
         /// Contains the "Paste"-ToolStripMenuItem object.
         /// </summary>
         ToolStripMenuItem _pasteToolStripMenuItem;
+
         /// <summary>
         /// Contains the "Select All"-ToolStripMenuItem object.
         /// </summary>
         ToolStripMenuItem _selectAllToolStripMenuItem;
+
         /// <summary>
         /// Initializes a new instance of BuildInContextMenu class.
         /// </summary>
@@ -44,6 +50,7 @@ namespace EmuDisk
             _hexBox = hexBox;
             _hexBox.ByteProviderChanged += new EventHandler(HexBox_ByteProviderChanged);
         }
+ 
         /// <summary>
         /// If ByteProvider
         /// </summary>
@@ -53,6 +60,7 @@ namespace EmuDisk
         {
             CheckBuiltInContextMenu();
         }
+
         /// <summary>
         /// Assigns the ContextMenuStrip control to the HexBox control.
         /// </summary>
@@ -85,6 +93,7 @@ namespace EmuDisk
             else if (this._hexBox.ByteProvider != null && this._hexBox.ContextMenuStrip == null)
                 this._hexBox.ContextMenuStrip = _contextMenuStrip;
         }
+ 
         /// <summary>
         /// Before opening the ContextMenuStrip, we manage the availability of the items.
         /// </summary>
@@ -97,30 +106,35 @@ namespace EmuDisk
             _pasteToolStripMenuItem.Enabled = this._hexBox.CanPaste();
             _selectAllToolStripMenuItem.Enabled = this._hexBox.CanSelectAll();
         }
+ 
         /// <summary>
         /// The handler for the "Cut"-Click event
         /// </summary>
         /// <param name="sender">the sender object</param>
         /// <param name="e">the event data</param>
         void CutMenuItem_Click(object sender, EventArgs e) { this._hexBox.Cut(); }
+ 
         /// <summary>
         /// The handler for the "Copy"-Click event
         /// </summary>
         /// <param name="sender">the sender object</param>
         /// <param name="e">the event data</param>
         void CopyMenuItem_Click(object sender, EventArgs e) { this._hexBox.Copy(); }
+ 
         /// <summary>
         /// The handler for the "Paste"-Click event
         /// </summary>
         /// <param name="sender">the sender object</param>
         /// <param name="e">the event data</param>
         void PasteMenuItem_Click(object sender, EventArgs e) { this._hexBox.Paste(); }
+ 
         /// <summary>
         /// The handler for the "Select All"-Click event
         /// </summary>
         /// <param name="sender">the sender object</param>
         /// <param name="e">the event data</param>
         void SelectAllMenuItem_Click(object sender, EventArgs e) { this._hexBox.SelectAll(); }
+
         /// <summary>
         /// Gets or sets the custom text of the "Copy" ContextMenuStrip item.
         /// </summary>
@@ -161,14 +175,17 @@ namespace EmuDisk
         /// Gets the text of the "Cut" ContextMenuStrip item.
         /// </summary>
         static internal string CutMenuItemTextInternal { get { return !string.IsNullOrEmpty(CutMenuItemText) ? CutMenuItemText : "Cut"; } }
+ 
         /// <summary>
         /// Gets the text of the "Copy" ContextMenuStrip item.
         /// </summary>
         static internal string CopyMenuItemTextInternal { get { return !string.IsNullOrEmpty(CopyMenuItemText) ? CopyMenuItemText : "Copy"; } }
+
         /// <summary>
         /// Gets the text of the "Paste" ContextMenuStrip item.
         /// </summary>
         static internal string PasteMenuItemTextInternal { get { return !string.IsNullOrEmpty(PasteMenuItemText) ? PasteMenuItemText : "Paste"; } }
+
         /// <summary>
         /// Gets the text of the "Select All" ContextMenuStrip item.
         /// </summary>
@@ -182,6 +199,7 @@ namespace EmuDisk
         {
             get { return null; }
         }
+
         /// <summary>
         /// Gets or sets the image of the "Copy" ContextMenuStrip item.
         /// </summary>
@@ -190,6 +208,7 @@ namespace EmuDisk
         {
             get { return null; }
         }
+
         /// <summary>
         /// Gets or sets the image of the "Paste" ContextMenuStrip item.
         /// </summary>
@@ -198,6 +217,7 @@ namespace EmuDisk
         {
             get { return null; }
         }
+
         /// <summary>
         /// Gets or sets the image of the "Select All" ContextMenuStrip item.
         /// </summary>

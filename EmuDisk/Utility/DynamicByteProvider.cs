@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmuDisk
 {
@@ -73,6 +70,7 @@ namespace EmuDisk
         }
 
         #region IByteProvider Members
+
         /// <summary>
         /// True, when changes are done.
         /// </summary>

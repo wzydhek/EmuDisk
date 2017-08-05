@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace EmuDisk
 {
-    /// <summary>
-    /// OS9 virtual disk support
-    /// </summary>
     public class OS9Format : BaseDiskFormat, IDiskFormat
     {
         #region Private Fields
@@ -29,9 +23,6 @@ namespace EmuDisk
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets the disk's Logical Sector 0
-        /// </summary>
         public LSN0 Lsn0
         {
             get

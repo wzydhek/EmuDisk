@@ -1,18 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EmuDisk
+﻿namespace EmuDisk
 {
     public class Geometry
     {
+        #region Public Properties
+
         public int Partitons { get; set; }
+
         public int Tracks { get; set; }
+
         public int Heads { get; set; }
+
         public int Sectors { get; set; }
+
         public int SectorSize { get; set; }
+
         public bool WriteProtect { get; set; }
+
+        #endregion
+
+        #region Constructors
 
         public Geometry(int partitions, int tracks, int heads, int sectors, int sectorsize, bool writeprotect)
         {
@@ -23,5 +29,7 @@ namespace EmuDisk
             this.SectorSize = sectorsize;
             this.WriteProtect = writeprotect;
         }
+
+        #endregion
     }
 }

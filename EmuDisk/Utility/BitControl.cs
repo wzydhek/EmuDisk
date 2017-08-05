@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 
@@ -128,33 +124,6 @@ namespace EmuDisk
             foreach (var txt in _txtBits)
                 txt.TextChanged += new EventHandler(txt_TextChanged);
         }
-
-        //int GetBitSetInt(byte b, int pos)
-        //{
-        //    if (IsBitSet(b, pos))
-        //        return 1;
-        //    else
-        //        return 0;
-        //}
-
-        //bool IsBitSet(byte b, int pos)
-        //{
-        //    return (b & (1 << pos)) != 0;
-        //}
-
-        //byte SetBit(byte b, int BitNumber)
-        //{
-        //    //Kleine Fehlerbehandlung
-        //    if (BitNumber < 8 && BitNumber > -1)
-        //    {
-        //        return (byte)(b | (byte)(0x01 << BitNumber));
-        //    }
-        //    else
-        //    {
-        //        throw new InvalidOperationException(
-        //        "Der Wert für BitNumber " + BitNumber.ToString() + " war nicht im zulässigen Bereich! (BitNumber = (min)0 - (max)7)");
-        //    }
-        //}
 
         void txt_TextChanged(object sender, EventArgs e)
         {

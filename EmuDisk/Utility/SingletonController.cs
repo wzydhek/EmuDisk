@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
@@ -15,12 +12,22 @@ namespace EmuDisk
     [Serializable]
     internal class SingletonController : MarshalByRefObject
     {
+        #region Private Properties
+
         private static TcpChannel m_TCPChannel = null;
         private static Mutex m_Mutex = null;
+        static private ReceiveDelegate m_Receive = null;
+
+        #endregion
+
+        #region Public Delegates
 
         public delegate void ReceiveDelegate(string[] args);
 
-        static private ReceiveDelegate m_Receive = null;
+        #endregion
+
+        #region Public Properties
+
         static public ReceiveDelegate Receiver
         {
             get
@@ -32,6 +39,10 @@ namespace EmuDisk
                 m_Receive = value;
             }
         }
+
+        #endregion
+
+        #region Public Methods
 
         public static bool IamFirst(ReceiveDelegate r)
         {
@@ -48,10 +59,6 @@ namespace EmuDisk
 
         public static bool IamFirst()
         {
-            //string m_UniqueIdentifier;
-            //string assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName(false).CodeBase;
-            //m_UniqueIdentifier = assemblyName.Replace("\\", "_");
-
             m_Mutex = new Mutex(false, "{0A002695-3B03-4FC9-9C9D-A8FF5B5FCA30}");
 
             if (m_Mutex.WaitOne(1, true))
@@ -119,5 +126,7 @@ namespace EmuDisk
                 m_Receive(s);
             }
         }
+
+        #endregion
     }
 }

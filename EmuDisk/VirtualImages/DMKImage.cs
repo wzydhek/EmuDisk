@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Windows.Forms;
 
@@ -77,9 +74,6 @@ namespace EmuDisk
     *      156 bytes   (0x4E)
     * ----------------------------------------------------------------------- */
 
-    /// <summary>
-    /// DMK Disk Image support
-    /// </summary>
     internal class DMKImage : DiskImageBase, IDiskImage
     {
         #region Private Properties

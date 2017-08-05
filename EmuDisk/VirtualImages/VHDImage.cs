@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Forms;
 
 namespace EmuDisk
 {
-    /// <summary>
-    /// VHD Disk Image support
-    /// </summary>
     internal class VHDImage : DiskImageBase, IDiskImage
     {
         #region Private Properties
@@ -24,10 +17,6 @@ namespace EmuDisk
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VHDImage"/> class
-        /// </summary>
-        /// <param name="filename">Disk image filename</param>
         public VHDImage(string filename) : base(filename)
         {
             this.GetDiskInfo();
@@ -37,9 +26,6 @@ namespace EmuDisk
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets Disk Image Type
-        /// </summary>
         public override DiskImageTypes ImageType
         {
             get

@@ -69,9 +69,6 @@ public class Form1 : System.Windows.Forms.Form, IMRUClient
 //// from MRU list.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Collections;
 using System.Diagnostics;

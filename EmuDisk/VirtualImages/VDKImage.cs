@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
@@ -31,7 +29,7 @@ namespace EmuDisk
      *      11      1   compression     Compression flags (bits 0-2) and name length
      * ----------------------------------------------------------------------- */
 
-/*
+    /*
     Dragon Emulator Virtual Disk (VDK) Format
     Paul Burgin / v1.0 / April 1999
 
@@ -39,51 +37,51 @@ namespace EmuDisk
 
     Offset	Size	Item						Notes
     0		2		Signature (ÒdkÓ)			MSB first. Note lower case to differentiate 
-                                                a VDK from a DOS ROM file.
+                                            a VDK from a DOS ROM file.
     2		2		Header length				LSB first. Total length of the header (equal 
-                                                to the offset to the start of disk data). 
-                                                Intended to allow the header to be extended 
-                                                easily.
+                                            to the offset to the start of disk data). 
+                                            Intended to allow the header to be extended 
+                                            easily.
     4		1		VDK version - actual		Indicates the version of the VDK format 
-                                                used to write the file. Currently $10 (VDK 
-                                                v1.0).
+                                            used to write the file. Currently $10 (VDK 
+                                            v1.0).
     5		1		VDK version - compatibility	For backwards compatibility, this indicates 
-                                                the minimum version of the VDK format 
-                                                that can be used to read the file. Effectively 
-                                                it says to the emulator ÒIf you can 
-                                                understand VDK version X then you can 
-                                                understand this fileÉÓ. Usually this byte 
-                                                will be the same as the previous one, but if 
-                                                a minor addition is made to the header then 
-                                                it becomes useful.
+                                            the minimum version of the VDK format 
+                                            that can be used to read the file. Effectively 
+                                            it says to the emulator ÒIf you can 
+                                            understand VDK version X then you can 
+                                            understand this fileÉÓ. Usually this byte 
+                                            will be the same as the previous one, but if 
+                                            a minor addition is made to the header then 
+                                            it becomes useful.
     6		1		Source id					Indicates how the file was created. 
-                                                Essentially this is for information only, 
-                                                but may be useful for debugging. The 
-                                                following values are defined:
-                                                       0 = created by hand
-                                                       1 = header stub
-                                                       2 = mkdsk.exe
-                                                       3 = other tools
-                                                     ÔPÕ = PC-Dragon
-                                                     ÔTÕ = T3
-                                                    >$7F = other emulator
+                                            Essentially this is for information only, 
+                                            but may be useful for debugging. The 
+                                            following values are defined:
+                                                    0 = created by hand
+                                                    1 = header stub
+                                                    2 = mkdsk.exe
+                                                    3 = other tools
+                                                    ÔPÕ = PC-Dragon
+                                                    ÔTÕ = T3
+                                                >$7F = other emulator
     7		1		Source version				Version information for the source 
-                                                identified above. E.g. $25=v2.05
+                                            identified above. E.g. $25=v2.05
     8		1		Number of tracks			40 or 80
     9		1		Number of sides				1 or 2
     10		1		Flags						bit 0 = write protect [0=off, 1=on]
-                                                bit 1 = lock (advisory) [0=off, 1=on]
-                                                bit 2 = lock (mandatory) [0=off, 1=on]
-                                                bit 3 = disk-set [0=last disk, 1=not last 
-                                                disk]
-                                                bits 4-7 = unused in VDK v1.0
+                                            bit 1 = lock (advisory) [0=off, 1=on]
+                                            bit 2 = lock (mandatory) [0=off, 1=on]
+                                            bit 3 = disk-set [0=last disk, 1=not last 
+                                            disk]
+                                            bits 4-7 = unused in VDK v1.0
     11		1		Compression & Name length	bits 0-2 = compression [0=off, >0=TBD]
-                                                bits 3-7 = disk name length [min 0, max 
-                                                31]
+                                            bits 3-7 = disk name length [min 0, max 
+                                            31]
     12		0-31	Disk name					Optional ASCII name for the virtual disk. 
-                                                Not zero terminated.
+                                            Not zero terminated.
     (min 12)	0+								Compression variables
-                                                TBD
+                                            TBD
 
     Some of the above needs a little more explanation. The write protect
     ability is included as a bit in the header so that it can survive
@@ -118,11 +116,8 @@ namespace EmuDisk
     compressed file. The disk name is optional and isnÕt ever displayed by
     PC-Dragon v2.05. Any data associated with compression is assumed to
     follow the disk name.
-*/
+    */
 
-    /// <summary>
-    /// VDK Disk Image support
-    /// </summary>
     internal class VDKImage : DiskImageBase, IDiskImage
     {
         #region Private Properties

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EmuDisk
+﻿namespace EmuDisk
 {
     /// <summary>
     /// Interface which should be implemented by owner form

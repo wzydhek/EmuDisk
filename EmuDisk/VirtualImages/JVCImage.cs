@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Windows.Forms;
 
@@ -105,9 +102,6 @@ namespace EmuDisk
  *
  * ----------------------------------------------------------------------- */
 
-    /// <summary>
-    /// JVC Disk Image support
-    /// </summary>
     internal class JVCImage : DiskImageBase, IDiskImage
     {
         #region Private Properties

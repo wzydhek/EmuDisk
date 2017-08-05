@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EmuDisk
+﻿namespace EmuDisk
 {
     /// <summary>
     /// Specifies the case of hex characters in the HexBox control

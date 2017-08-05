@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace EmuDisk
@@ -23,24 +21,6 @@ namespace EmuDisk
         public LSN0(byte[] buffer)
         {
             lsn0 = buffer;
-
-            //this.TotalSectors = Util.Int24(buffer.Subset(0x00, 3));
-            //this.TrackSize = buffer[0x03];
-            //this.MapBytes = Util.UInt16(buffer.Subset(0x04, 2));
-            //this.ClusterSize = Util.UInt16(buffer.Subset(0x06, 2));
-            //this.RootDirectory = Util.Int24(buffer.Subset(0x08, 3));
-            //this.Owner = Util.UInt16(buffer.Subset(0x0b, 2));
-            //this.Attributes = buffer[0x0d];
-            //this.DiskID = Util.UInt16(buffer.Subset(0x0e, 2));
-            //this.DiskFormat = buffer[0x10];
-            //this.SectorsPerTrack = Util.UInt16(buffer.Subset(0x11, 2));
-            //this.Reserved = Util.UInt16(buffer.Subset(0x13, 2));
-            //this.BootStrap = Util.Int24(buffer.Subset(0x15, 3));
-            //this.BootStrapSize = Util.UInt16(buffer.Subset(0x18, 2));
-            //this.PackedCreationDate = buffer.Subset(0x1a, 5);
-            //this.VolumeNameBytes = buffer.Subset(0x1f, 32);
-            //this.PathDescriptor = new PathDescriptor(buffer.Subset(0x3f, 19));
-            //this.SectorSize = buffer[0x68];
         }
 
         #endregion

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace EmuDisk
 {
@@ -14,7 +9,6 @@ namespace EmuDisk
         public byte Value
         {
             get { return _value; }
-            //set { _value = value; }
         }
 
         public long Position { get; set; }
@@ -62,17 +56,5 @@ namespace EmuDisk
                     _value &= (byte)(~(1 << index)); //set bit index 0
             }
         }
-
-        //byte ConvertToByte(BitArray bits)
-        //{
-        //    if (bits.Count != 8)
-        //    {
-        //        throw new ArgumentException("bits");
-        //    }
-        //    byte[] bytes = new byte[1];
-        //    bits.CopyTo(bytes, 0);
-        //    return bytes[0];
-        //}
-
     }
 }

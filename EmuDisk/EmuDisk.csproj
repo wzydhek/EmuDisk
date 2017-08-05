@@ -93,11 +93,11 @@
     <Compile Include="Formats\DiskFormatTypes.cs" />
     <Compile Include="Formats\IDiskFormat.cs" />
     <Compile Include="Formats\OS9Format.cs" />
-    <Compile Include="Forms\AboutBox1.cs">
+    <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AboutBox1.Designer.cs">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
+    <Compile Include="Forms\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DiskViewForm.cs">
       <SubType>Form</SubType>
@@ -130,8 +130,8 @@
     <EmbeddedResource Include="Utility\BitControl.resx">
       <DependentUpon>BitControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AboutBox1.resx">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DiskViewForm.resx">
       <DependentUpon>DiskViewForm.cs</DependentUpon>

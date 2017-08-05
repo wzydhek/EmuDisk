@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
+﻿using System.Collections;
 using System.Windows.Forms;
 using System.Globalization;
 
@@ -10,9 +6,15 @@ namespace EmuDisk
 {
     internal class ListViewColumnSorter : IComparer
     {
+        #region Private Methods
+
         private int ColumnToSort;
         private SortOrder OrderOfSort;
         private CaseInsensitiveComparer ObjectCompare;
+
+        #endregion
+
+        #region Public Properties
 
         public SortOrder Order
         {
@@ -25,6 +27,7 @@ namespace EmuDisk
                 return OrderOfSort;
             }
         }
+
         public int SortColumn
         {
             set
@@ -36,6 +39,10 @@ namespace EmuDisk
                 return ColumnToSort;
             }
         }
+
+        #endregion
+
+        #region Public Methods
 
         public ListViewColumnSorter()
         {
@@ -66,5 +73,7 @@ namespace EmuDisk
                 return 0;
             }
         }
+
+        #endregion
     }
 }
