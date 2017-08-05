@@ -79,6 +79,19 @@ namespace EmuDisk
             }
         }
 
+        public override string VolumeLabel
+        {
+            get
+            {
+                return lsn0.VolumeName;
+            }
+            set
+            {
+                lsn0.VolumeName = value;
+                WriteLSN(0, lsn0.Bytes);
+            }
+        }
+        
         #endregion
 
         #region Public Methods
@@ -161,11 +174,6 @@ namespace EmuDisk
             if (this.LogicalSectorSize == 0)
             {
                 this.LogicalSectorSize = 256;
-            }
-
-            if (this.lsn0.PathDescriptor.SegmentAllocationSize == 0)
-            {
-                this.lsn0.PathDescriptor.SegmentAllocationSize = 8;
             }
 
             if (this.lsn0.TotalSectors == 0 || this.LogicalSectors == 0)

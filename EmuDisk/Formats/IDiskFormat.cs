@@ -48,6 +48,8 @@ namespace EmuDisk
         int FreeSpace { get; }
         int TotalSpace { get; }
 
+        string VolumeLabel { get; set; }
+
         string ToString();
     }
 }

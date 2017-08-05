@@ -72,6 +72,12 @@ namespace EmuDisk
             get { return 0; }
         }
 
+        public virtual string VolumeLabel
+        {
+            get { return null; }
+            set { }
+        }
+        
         #endregion
 
         #region Public Methods

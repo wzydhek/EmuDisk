@@ -497,15 +497,33 @@ namespace EmuDisk
                 if (diskname == "")
                     diskname = null;
                 form.DiskFormat.DiskImage.DiskLabel = diskname;
+
                 form.Text = form.DiskFormat.DiskImage.Filename;
-                if (!string.IsNullOrEmpty(diskname))
-                    form.Text += " [" + diskname + "]";
+                if (!string.IsNullOrEmpty(form.DiskFormat.DiskImage.DiskLabel))
+                    this.Text += " {" + form.DiskFormat.DiskImage.DiskLabel + "}";
+                if (!string.IsNullOrEmpty(form.DiskFormat.VolumeLabel))
+                    this.Text += " [" + form.DiskFormat.VolumeLabel + "]";
             }
         }
 
         private void mnuDiskChangeVolumename_Click(object sender, EventArgs e)
         {
+            DiskViewForm form = (DiskViewForm)this.ActiveMdiChild;
+            string volumename = form.DiskFormat.VolumeLabel;
 
+            DialogResult dr = InputBox("Volume Rename", "Volume Name", 32, ref volumename);
+            if (dr == DialogResult.OK)
+            {
+                if (volumename == "")
+                    volumename = null;
+                form.DiskFormat.VolumeLabel = volumename;
+
+                form.Text = form.DiskFormat.DiskImage.Filename;
+                if (!string.IsNullOrEmpty(form.DiskFormat.DiskImage.DiskLabel))
+                    form.Text += " {" + form.DiskFormat.DiskImage.DiskLabel + "}";
+                if (!string.IsNullOrEmpty(form.DiskFormat.VolumeLabel))
+                    form.Text += " [" + form.DiskFormat.VolumeLabel + "]";
+            }
         }
 
         private void mnuDiskSectorEditor_Click(object sender, EventArgs e)
@@ -676,8 +694,12 @@ namespace EmuDisk
                             this.mnuDiskBootstrap.Enabled = true;
                         }
                     }
+
                     if (form.DiskFormat.DiskImage is VDKImage)
                         this.mnuDiskChangeDiskName.Enabled = true;
+
+                    if (form.DiskFormat is OS9Format || form.DiskFormat is RSDosFormat)
+                        this.mnuDiskChangeVolumename.Enabled = true;
                 }
             }
         }

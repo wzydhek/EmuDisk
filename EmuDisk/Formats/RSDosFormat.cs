@@ -111,6 +111,36 @@ namespace EmuDisk
             }
         }
 
+        public override string VolumeLabel
+        {
+            get
+            {
+                byte[] sector = ReadSector(17, 0, 17);
+                StringBuilder sb = new StringBuilder();
+                for (int i=0; i<sector.Length; i++)
+                {
+                    if (sector[i] == 0xff || sector[i] == 0)
+                        break;
+                    sb.Append(Encoding.ASCII.GetString(new byte[] { sector[i] }));
+                }
+
+                string name = sb.ToString();
+                if (string.IsNullOrEmpty(name))
+                    return null;
+                return name;
+            }
+            set
+            {
+                if (value.Length > 255)
+                    value = value.Substring(0, 255);
+                byte[] namebytes = Encoding.ASCII.GetBytes(value);
+                byte[] sector = new byte[DiskImage.PhysicalSectorSize].Initialize(0xFF);
+                Array.Copy(namebytes, 0, sector, 0, namebytes.Length);
+                sector[namebytes.Length] = 0x00;
+                WriteSector(17, 0, 17, sector);
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -126,14 +156,11 @@ namespace EmuDisk
 
         #region Private Methods
 
-        /// <summary>
-        /// Read a series of sectors from the disk
-        /// </summary>
-        /// <param name="track">Beginning cylinder</param>
-        /// <param name="head">Beginning side</param>
-        /// <param name="sector">Beginning sector</param>
-        /// <param name="sectorCount">Number of consecutive sectors to read</param>
-        /// <returns>Array of bytes read from the disk</returns>
+        private byte[] ReadSector(int track, int head, int sector)
+        {
+            return this.DiskImage.ReadSector(track, head, sector);
+        }
+
         private byte[] ReadSectors(int track, int head, int sector, int sectorCount)
         {
             byte[] buffer = new byte[sectorCount * this.LogicalSectorSize];
@@ -159,6 +186,11 @@ namespace EmuDisk
             }
 
             return buffer;
+        }
+
+        private void WriteSector(int track, int head, int sector, byte[] buffer)
+        {
+            this.DiskImage.WriteSector(track, head, sector, buffer);
         }
 
         /// <summary>

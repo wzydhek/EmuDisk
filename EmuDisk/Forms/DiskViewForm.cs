@@ -66,9 +66,9 @@ namespace EmuDisk
 
             this.Text = diskFormat.DiskImage.Filename;
             if (!string.IsNullOrEmpty(diskFormat.DiskImage.DiskLabel))
-            {
-                this.Text += " [" + diskFormat.DiskImage.DiskLabel + "]";
-            }
+                this.Text += " {" + diskFormat.DiskImage.DiskLabel + "}";
+            if (!string.IsNullOrEmpty(diskFormat.VolumeLabel))
+                this.Text += " [" + diskFormat.VolumeLabel + "]";
 
             treeView.Nodes.Clear();
             listView.Items.Clear();

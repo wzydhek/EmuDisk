@@ -56,7 +56,6 @@
     <Compile Include="VirtualImages\DiskImageTypes.cs" />
     <Compile Include="Formats\DragonDosFormat.cs" />
     <Compile Include="Formats\RSDosFormat.cs" />
-    <Compile Include="Structures\PathDescriptor.cs" />
     <Compile Include="Utility\SystemExtensions.cs" />
     <Compile Include="VirtualImages\VHDImage.cs" />
     <Compile Include="VirtualImages\DMKImage.cs" />
