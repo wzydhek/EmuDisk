@@ -82,10 +82,72 @@ namespace EmuDisk
                 WriteLSN(0, lsn0.Bytes);
             }
         }
-        
+
         #endregion
 
         #region Public Methods
+
+        public override VirtualDirectory GetDirectory(int index)
+        {
+            VirtualDirectory dir = new VirtualDirectory();
+            if (index == 0)
+                index = lsn0.DD_DIR;
+
+            OS9FileDescriptor dirdesc = new OS9FileDescriptor(ReadLSN(index));
+            int dirsize = dirdesc.FD_SIZ;
+
+            for (int s = 0; s < 48; s++)
+            {
+                int dsize = 0;
+                OS9FileSegment seg = dirdesc.FD_SEG[s];
+                if (seg.Sectors == 0)
+                    break;
+
+                for (int i=0; i<seg.Sectors; i++)
+                {
+                    byte[] sector = ReadLSN(seg.LSN + i);
+
+                    for (int j=0; j<8; j++)
+                    {
+                        dsize += 0x20;
+                        if (dsize > dirsize)
+                        {
+                            i = seg.Sectors;
+                            s = 48;
+                            break;
+                        }
+                        OS9DirectoryEntry entry = new OS9DirectoryEntry(sector.Subset(j * 32, 32));
+                        //if (entry.EoD)
+                        //{
+                        //    i = seg.Sectors;
+                        //    s = 48;
+                        //    break;
+                        //}
+                        if (entry.Deleted)
+                            continue;
+
+                        if (entry.Filename == "." || entry.Filename == "..")
+                            continue;
+
+                        OS9FileDescriptor filedesc = new OS9FileDescriptor(ReadLSN(entry.LSN));
+                        int siz = filedesc.FD_SIZ;
+
+                        VirtualFile file = new VirtualFile();
+                        file.Filename = entry.Filename;
+                        file.Filesize = filedesc.FD_SIZ;
+                        file.Attr = filedesc.FD_ATT;
+                        file.Created = filedesc.FD_CREAT;
+                        file.Modified = filedesc.FD_DAT;
+                        file.LSN = entry.LSN;
+                        file.ParentLSN = index;
+
+                        dir.Add(file);
+                    }
+                }
+            }
+
+            return dir;
+        }
 
         public override string ToString()
         {
@@ -97,55 +159,6 @@ namespace EmuDisk
         #endregion
 
         #region Private Methods
-
-        private byte[] ReadLSN(int lsn)
-        {
-            if (lsn == 0)
-                return DiskImage.ReadSector(0, 0, 1);
-
-            int track = lsn / (LogicalSectors * LogicalHeads);
-            int head = (lsn / LogicalSectors) % LogicalHeads;
-            int sector = (lsn % LogicalSectors) + 1;
-
-            return DiskImage.ReadSector(track, head, sector);
-        }
-
-        private byte[] ReadLSNs(int lsn, int count)
-        {
-            byte[] buffer = new byte[count * this.LogicalSectorSize];
-
-            for (int i = 0, bufferOffset = 0; i < count; i++, bufferOffset += this.LogicalSectorSize)
-            {
-                Array.Copy(this.ReadLSN(lsn + i), 0, buffer, bufferOffset, this.LogicalSectorSize);
-            }
-
-            return buffer;
-        }
-
-        private void WriteLSN(int lsn, byte[] data)
-        {
-            if (lsn == 0)
-                DiskImage.WriteSector(0, 0, 1, data);
-            else
-            {
-                int track = lsn / (LogicalSectors * LogicalHeads);
-                int head = (lsn / LogicalSectors) % LogicalHeads;
-                int sector = (lsn % LogicalSectors) + 1;
-
-                DiskImage.WriteSector(track, head, sector, data);
-            }
-        }
-
-        private void WriteLSNs(int lsn, int count, byte[] data)
-        {
-            byte[] buffer = new byte[this.LogicalSectorSize];
-
-            for (int i = 0, bufferOffset = 0; i < count; i++, bufferOffset += this.LogicalSectorSize)
-            {
-                Array.Copy(data, bufferOffset, buffer, 0, this.LogicalSectorSize);
-                WriteLSN(lsn + i, buffer);
-            }
-        }
 
         private bool ValidateOS9()
         {

@@ -37,7 +37,7 @@ namespace EmuDisk
             get
             {
                 StringBuilder sb = new StringBuilder();
-                for (int i=1; i<9; i++)
+                for (int i=0; i<8; i++)
                 {
                     if (block[i] == 0)
                         break;
@@ -58,7 +58,7 @@ namespace EmuDisk
                 byte[] filename = new byte[8];
                 byte[] bytes = Encoding.ASCII.GetBytes(value);
                 Array.Copy(bytes, 0, filename, 0, bytes.Length);
-                Array.Copy(filename, 0, block, 1, 8);
+                Array.Copy(filename, 0, block, 0, 8);
             }
         }
 
@@ -67,7 +67,7 @@ namespace EmuDisk
             get
             {
                 StringBuilder sb = new StringBuilder();
-                for (int i = 9; i < 0x0C; i++)
+                for (int i = 8; i < 0x0B; i++)
                 {
                     if (block[i] == 0)
                         break;
@@ -85,10 +85,10 @@ namespace EmuDisk
                 if (value.Length > 3)
                     value = value.Substring(0, 3);
 
-                byte[] filename = new byte[3];
+                byte[] extension = new byte[3];
                 byte[] bytes = Encoding.ASCII.GetBytes(value);
-                Array.Copy(bytes, 0, filename, 0, bytes.Length);
-                Array.Copy(filename, 0, block, 1, 3);
+                Array.Copy(bytes, 0, extension, 0, bytes.Length);
+                Array.Copy(extension, 0, block, 8, 3);
             }
         }
 
@@ -96,7 +96,7 @@ namespace EmuDisk
         {
             if (index > 3)
                 return null;
-            return new DragonSectorAllocationBlock(block.Subset(0x0C + (index * 3), 3));
+            return new DragonSectorAllocationBlock(block.Subset(0x0B + (index * 3), 3));
         }
 
         public byte[] Bytes

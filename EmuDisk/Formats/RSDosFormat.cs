@@ -136,6 +136,38 @@ namespace EmuDisk
 
         #region Public Methods
 
+        public override VirtualDirectory GetDirectory(int index)
+        {
+            VirtualDirectory dir = new VirtualDirectory();
+
+            for (int s = 3; s < 19; s++)
+            {
+                byte[] buffer = ReadSector(17, 0, s);
+                for (int i=0; i<8; i++)
+                {
+                    RSDosDirectoryEntry entry = new RSDosDirectoryEntry(buffer.Subset(i * 32, 32));
+                    if (entry.Deleted)
+                        continue;
+                    if (entry.EoD)
+                    {
+                        s = 18;
+                        break;
+                    }
+
+                    VirtualFile file = new VirtualFile();
+                    file.Filename = entry.Filename;
+                    file.Extension = entry.Extension;
+                    file.Filesize = GetFileSize(entry.FirstGranule, entry.LastSectorBytes);
+                    file.FileType = entry.FileType;
+                    file.ASCII = entry.ASCII;
+
+                    dir.Add(file);
+                }
+            }
+
+            return dir;
+        }
+
         public override string ToString()
         {
             return "RSDOS";
@@ -146,43 +178,6 @@ namespace EmuDisk
         #endregion
 
         #region Private Methods
-
-        private byte[] ReadSector(int track, int head, int sector)
-        {
-            return this.DiskImage.ReadSector(track, head, sector);
-        }
-
-        private byte[] ReadSectors(int track, int head, int sector, int sectorCount)
-        {
-            byte[] buffer = new byte[sectorCount * this.LogicalSectorSize];
-
-            for (int i = 0; i < sectorCount; i++)
-            {
-                Array.Copy(this.DiskImage.ReadSector(track, head, sector), 0, buffer, i * this.LogicalSectorSize, this.LogicalSectorSize);
-                sector++;
-                if (sector > this.LogicalSectors)
-                {
-                    sector = 1;
-                    head++;
-                    if (head > this.LogicalHeads - 1)
-                    {
-                        head = 0;
-                        track++;
-                        if (track > this.LogicalTracks - 1)
-                        {
-                            track = 0;
-                        }
-                    }
-                }
-            }
-
-            return buffer;
-        }
-
-        private void WriteSector(int track, int head, int sector, byte[] buffer)
-        {
-            this.DiskImage.WriteSector(track, head, sector, buffer);
-        }
 
         private bool ValidateRSDOS()
         {
@@ -239,6 +234,27 @@ namespace EmuDisk
             }
 
             return !directoryEmpty;
+        }
+
+        private int GetFileSize(int granule, int lastbytes)
+        {
+            int size = 0;
+            byte[] granmap = ReadSector(17, 0, 2);
+            int g = granmap[granule];
+            while ((g & 0xC0) != 0xC0)
+            {
+                size += 9 * 256;
+                granule = g;
+                g = granmap[granule];
+            }
+            if (g > 0xC0)
+            {
+                g &= 0x0F;
+                size += (g - 1) * 256;
+            }
+
+            size += lastbytes;
+            return size;
         }
 
         #endregion

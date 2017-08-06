@@ -71,7 +71,7 @@ namespace EmuDisk
         {
             get
             {
-                if (!Continuation)
+                if (Continuation)
                     return null;
                 return new DragonFileHeaderBlock(entry.Subset(1, 0x17));
             }
@@ -86,7 +86,7 @@ namespace EmuDisk
         {
             get
             {
-                if (Continuation)
+                if (!Continuation)
                     return null;
                 return new DragonContinuationBlock(entry.Subset(1, 0x17));
             }

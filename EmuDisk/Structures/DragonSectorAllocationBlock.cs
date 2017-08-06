@@ -17,14 +17,14 @@ namespace EmuDisk
             block = new byte[3];
         }
 
-        public DragonSectorAllocationBlock(int lsn, int sectors)
+        public DragonSectorAllocationBlock(int lsn, int sectors) : this()
         {
             block[0] = (byte)(lsn >> 8);
             block[1] = (byte)(lsn & 0xFF);
             block[2] = (byte)sectors;
         }
 
-        public DragonSectorAllocationBlock(byte[] buffer)
+        public DragonSectorAllocationBlock(byte[] buffer) : this()
         {
             if (buffer.Length < 3)
             {

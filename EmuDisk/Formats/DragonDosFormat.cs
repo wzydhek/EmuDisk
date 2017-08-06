@@ -1,4 +1,6 @@
-﻿namespace EmuDisk
+﻿using System.Collections.Generic;
+
+namespace EmuDisk
 {
     /// <summary>
     /// <para>
@@ -247,6 +249,72 @@
         #endregion
 
         #region Public Methods
+
+        public override VirtualDirectory GetDirectory(int index)
+        {
+            VirtualDirectory dir = new VirtualDirectory();
+            List<DragonDirectoryEntry> entries = new List<DragonDirectoryEntry>();
+
+            for (int s = 3; s< 19; s++)
+            {
+                byte[] buffer = ReadSector(20, 0, s);
+                for (int i = 0; i < 10; i++)
+                {
+                    DragonDirectoryEntry entry = new DragonDirectoryEntry(buffer.Subset(i * 25, 25));
+                    if (entry.Deleted)
+                        continue;
+                    if (entry.EoD)
+                    {
+                        s = 19;
+                        break;
+                    }
+
+                    entries.Add(entry);
+                }
+            }
+
+            foreach (DragonDirectoryEntry entry in entries)
+            {
+                if (!entry.Continuation)
+                {
+                    VirtualFile file = new VirtualFile();
+                    DragonFileHeaderBlock fhblock = entry.FileHeaderBlock;
+                    file.Filename = fhblock.Filename;
+                    file.Extension = fhblock.Extension;
+                    file.Filesize = 0;
+
+                    for (int i=0; i<4; i++)
+                    {
+                        DragonSectorAllocationBlock ablock = fhblock.SectorAllocationBlock(i);
+                        if (ablock.Sectors == 0)
+                            continue;
+                        file.Filesize += ablock.Sectors * 256;
+                    }
+
+                    DragonDirectoryEntry ent = entry;
+                    while (ent.Continued)
+                    {
+                        ent = entries[ent.Next];
+                        DragonContinuationBlock cblock = entry.ContinuationBlock;
+                        for (int i=0;i<7;i++)
+                        {
+                            DragonSectorAllocationBlock ablock = fhblock.SectorAllocationBlock(i);
+                            if (ablock.Sectors == 0)
+                                continue;
+                            file.Filesize += ablock.Sectors * 256;
+                        }
+                    }
+
+                    file.Filesize -= (256 - ent.Next);
+                    if (file.Filesize < 0)
+                        file.Filesize = 0;
+
+                    dir.Add(file);
+                }
+            }
+
+            return dir;
+        }
 
         public override string ToString()
         {

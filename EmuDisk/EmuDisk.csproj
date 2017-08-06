@@ -87,6 +87,8 @@
     <Compile Include="Structures\Geometry.cs" />
     <Compile Include="Utility\ListViewColumnSorter.cs" />
     <Compile Include="Utility\Crc16.cs" />
+    <Compile Include="Structures\VirtualFile.cs" />
+    <Compile Include="Structures\VirtualDirectory.cs" />
     <Compile Include="VirtualImages\DiskImageTypes.cs" />
     <Compile Include="Formats\DragonDosFormat.cs" />
     <Compile Include="Formats\RSDosFormat.cs" />

@@ -35,9 +35,9 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listView = new System.Windows.Forms.ListView();
             this.treeView = new System.Windows.Forms.TreeView();
             this.contextTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.listView = new System.Windows.Forms.ListView();
             this.contextListView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -96,7 +96,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.toolStripStatusLabel4.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(131, 17);
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(513, 17);
             this.toolStripStatusLabel4.Spring = true;
             this.toolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -117,6 +117,23 @@
             this.splitContainer1.SplitterDistance = 180;
             this.splitContainer1.TabIndex = 1;
             // 
+            // treeView
+            // 
+            this.treeView.AllowDrop = true;
+            this.treeView.ContextMenuStrip = this.contextTreeView;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.Location = new System.Drawing.Point(0, 0);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(180, 275);
+            this.treeView.TabIndex = 0;
+            this.treeView.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView_BeforeSelect);
+            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            // 
+            // contextTreeView
+            // 
+            this.contextTreeView.Name = "contextTreeView";
+            this.contextTreeView.Size = new System.Drawing.Size(61, 4);
+            // 
             // listView
             // 
             this.listView.ContextMenuStrip = this.contextListView;
@@ -128,21 +145,6 @@
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
-            // 
-            // treeView
-            // 
-            this.treeView.AllowDrop = true;
-            this.treeView.ContextMenuStrip = this.contextTreeView;
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.Location = new System.Drawing.Point(0, 0);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(180, 275);
-            this.treeView.TabIndex = 0;
-            // 
-            // contextTreeView
-            // 
-            this.contextTreeView.Name = "contextTreeView";
-            this.contextTreeView.Size = new System.Drawing.Size(61, 4);
             // 
             // contextListView
             // 

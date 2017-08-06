@@ -55,6 +55,18 @@ namespace EmuDisk
             }
         }
 
+        public bool Deleted
+        {
+            get { return entry[0x00] == 0x00; }
+            set { if (value) entry[0x00] = 0x00; }
+        }
+
+        public bool EoD
+        {
+            get { return entry[0x00] == 0xFF; }
+            set { if (value) entry[0x00] = 0xFF; }
+        }
+
         public string Extension
         {
             get

@@ -66,14 +66,14 @@ namespace EmuDisk
 
                 if (year == 0 && month == 0 && day == 0)
                 {
-                    year = 1970;
+                    year = 70;
                     month = 1;
                     day = 1;
                 }
                 else if (year == 0 || month == 0 || day == 0)
                 {
                     if (year == 0)
-                        year = 2000;
+                        year = 00;
                     if (month == 0)
                         month = 1;
                     if (day == 0)
@@ -122,10 +122,10 @@ namespace EmuDisk
             }
             set
             {
-                desc[0x09] = (byte)((value >> 24) & 0xFF);
-                desc[0x0A] = (byte)((value >> 16) & 0xFF);
-                desc[0x0B] = (byte)((value >> 8) & 0xFF);
-                desc[0x0C] = (byte)(value & 0xFF);
+                desc[0x09] = (byte)(value >> 24);
+                desc[0x0A] = (byte)(value >> 16);
+                desc[0x0B] = (byte)(value >> 8);
+                desc[0x0C] = (byte)value;
             }
         }
 
@@ -139,14 +139,14 @@ namespace EmuDisk
 
                 if (year == 0 && month == 0 && day == 0)
                 {
-                    year = 1970;
+                    year = 70;
                     month = 1;
                     day = 1;
                 }
                 else if (year == 0 || month == 0 || day == 0)
                 {
                     if (year == 0)
-                        year = 2000;
+                        year = 00;
                     if (month == 0)
                         month = 1;
                     if (day == 0)
@@ -179,7 +179,7 @@ namespace EmuDisk
                 OS9FileSegment[] segs = new OS9FileSegment[48];
                 for (int i = 0; i<48; i++)
                 {
-                    segs[i] = new OS9FileSegment(desc.Subset(0x10 + (i * 3), 3));
+                    segs[i] = new OS9FileSegment(desc.Subset(0x10 + (i * 5), 5));
                 }
                 return segs;
             }
@@ -190,7 +190,7 @@ namespace EmuDisk
 
                 for (int i=0; i<value.Length; i++)
                 {
-                    Array.Copy(value[i].Bytes, 0, desc, 0x10 + (i * 3), 3);
+                    Array.Copy(value[i].Bytes, 0, desc, 0x10 + (i * 5), 5);
                 }
             }
         }

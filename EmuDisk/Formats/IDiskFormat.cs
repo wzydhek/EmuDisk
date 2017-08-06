@@ -22,6 +22,10 @@
 
         string VolumeLabel { get; set; }
 
+        VirtualDirectory GetDirectory(int index);
+
+        byte[] GetFile(VirtualFile file);
+
         string ToString();
     }
 }
