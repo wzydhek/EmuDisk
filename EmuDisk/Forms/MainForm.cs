@@ -568,7 +568,7 @@ namespace EmuDisk
                     if (form.DiskFormat.DiskFormat == DiskFormatTypes.OS9Format)
                     {
                         OS9Format diskformat = (OS9Format)form.DiskFormat;
-                        if (diskformat.Lsn0.BootStrap != 0)
+                        if (diskformat.Lsn0.DD_BT != 0)
                         {
                             this.mnuDiskBootstrap.Enabled = true;
                         }

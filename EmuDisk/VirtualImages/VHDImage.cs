@@ -133,7 +133,7 @@ namespace EmuDisk
                 goto NotValid;
 
             LSN0 lsn0 = new LSN0(this.ReadSector(0, 0, 1));
-            int totalSectors = lsn0.TotalSectors;
+            int totalSectors = lsn0.DD_TOT;
             if (((this.Length - (totalSectors * this.PhysicalSectorSize)) % rsdospart) == 0)
             {
                 firstPartitonSize = totalSectors * this.PhysicalSectorSize;

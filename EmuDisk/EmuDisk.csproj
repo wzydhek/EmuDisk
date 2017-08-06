@@ -49,6 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Structures\RSDosDirectoryEntry.cs" />
+    <Compile Include="Structures\DragonContinuationBlock.cs" />
+    <Compile Include="Structures\DragonFileHeaderBlock.cs" />
+    <Compile Include="Structures\DragonDirectoryEntry.cs" />
+    <Compile Include="Structures\OS9DirectoryEntry.cs" />
+    <Compile Include="Structures\OS9FileDescriptor.cs" />
+    <Compile Include="Structures\OS9FileSegment.cs" />
+    <Compile Include="Structures\DragonSectorAllocationBlock.cs" />
     <Compile Include="Utility\DynamicByteProvider.cs" />
     <Compile Include="Utility\FixedLengthByteProvider.cs" />
     <Compile Include="Utility\ByteCharConverter.cs" />

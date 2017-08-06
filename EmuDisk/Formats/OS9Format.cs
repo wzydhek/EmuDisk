@@ -16,7 +16,7 @@ namespace EmuDisk
         {
             this.DiskImage = diskImage;
             this.ValidateOS9();
-            this.BaseDiskLabel = this.lsn0.VolumeName;
+            this.BaseDiskLabel = this.lsn0.DD_NAM;
         }
 
         #endregion
@@ -58,7 +58,7 @@ namespace EmuDisk
             get
             {
                 byte[] bitmap = this.GetBitmap();
-                return this.GetFreeClusers(bitmap) * this.LogicalSectorSize * this.lsn0.ClusterSize;
+                return this.GetFreeClusers(bitmap) * this.LogicalSectorSize * this.lsn0.DD_BIT;
             }
         }
 
@@ -66,7 +66,7 @@ namespace EmuDisk
         {
             get
             {
-                return lsn0.TotalSectors * this.LogicalSectorSize;
+                return lsn0.DD_TOT * this.LogicalSectorSize;
             }
         }
 
@@ -74,11 +74,11 @@ namespace EmuDisk
         {
             get
             {
-                return lsn0.VolumeName;
+                return lsn0.DD_NAM;
             }
             set
             {
-                lsn0.VolumeName = value;
+                lsn0.DD_NAM = value;
                 WriteLSN(0, lsn0.Bytes);
             }
         }
@@ -151,36 +151,36 @@ namespace EmuDisk
         {
             this.lsn0 = new LSN0(this.ReadLSN(0));
 
-            if (this.lsn0.DiskFormat == 0x82)
+            if (this.lsn0.DD_FMT == 0x82)
             {
                 this.LogicalHeads = 1;
             }
             else
             {
-                this.LogicalHeads = ((this.lsn0.DiskFormat & 0x01) > 0) ? 2 : 1;
+                this.LogicalHeads = ((this.lsn0.DD_FMT & 0x01) > 0) ? 2 : 1;
             }
 
-            this.LogicalSectors = this.lsn0.SectorsPerTrack;
-            this.LogicalSectorSize = this.lsn0.SectorSize;
+            this.LogicalSectors = this.lsn0.DD_SPT;
+            this.LogicalSectorSize = this.lsn0.DD_LSNSize;
             if (this.LogicalSectorSize == 0)
             {
                 this.LogicalSectorSize = 256;
             }
 
-            if (this.lsn0.TotalSectors == 0 || this.LogicalSectors == 0)
+            if (this.lsn0.DD_TOT == 0 || this.LogicalSectors == 0)
             {
                 return false;
             }
 
-            this.LogicalTracks = this.lsn0.TotalSectors / this.LogicalSectors / this.LogicalHeads;
+            this.LogicalTracks = this.lsn0.DD_TOT / this.LogicalSectors / this.LogicalHeads;
 
-            int bitmapLSNs = (this.lsn0.MapBytes + (this.LogicalSectorSize - 1)) / this.LogicalSectorSize;
-            if (1 + bitmapLSNs > this.lsn0.RootDirectory)
+            int bitmapLSNs = (this.lsn0.DD_MAP + (this.LogicalSectorSize - 1)) / this.LogicalSectorSize;
+            if (1 + bitmapLSNs > this.lsn0.DD_DIR)
             {
                 return false;
             }
 
-            if (this.LogicalSectors != this.lsn0.TrackSize)
+            if (this.LogicalSectors != this.lsn0.DD_TKS)
             {
                 return false;
             }
@@ -190,7 +190,7 @@ namespace EmuDisk
                 return false;
             }
 
-            if (this.lsn0.TotalSectors % this.LogicalSectors > 0)
+            if (this.lsn0.DD_TOT % this.LogicalSectors > 0)
             {
                 return false;
             }
@@ -207,7 +207,7 @@ namespace EmuDisk
                 }
             }
 
-            if (this.lsn0.TotalSectors != this.LogicalTracks * this.LogicalHeads * this.LogicalSectors)
+            if (this.lsn0.DD_TOT != this.LogicalTracks * this.LogicalHeads * this.LogicalSectors)
             {
                 return false;
             }
@@ -217,8 +217,8 @@ namespace EmuDisk
 
         private byte[] GetBitmap()
         {
-            byte[] bitmap = new byte[this.lsn0.MapBytes].Initialize(0xff);
-            int bitmapSectors = (this.lsn0.MapBytes + (this.LogicalSectorSize - 1)) / this.LogicalSectorSize;
+            byte[] bitmap = new byte[this.lsn0.DD_MAP].Initialize(0xff);
+            int bitmapSectors = (this.lsn0.DD_MAP + (this.LogicalSectorSize - 1)) / this.LogicalSectorSize;
             return this.ReadLSNs(1, bitmapSectors);
         }
 
@@ -226,7 +226,7 @@ namespace EmuDisk
         {
             int freeLSNs = 0;
 
-            for (int i = 0; i < this.lsn0.TotalSectors; i++)
+            for (int i = 0; i < this.lsn0.DD_TOT; i++)
             {
                 byte b = bitmap[i / 8];
                 b >>= 7 - (i % 8);
