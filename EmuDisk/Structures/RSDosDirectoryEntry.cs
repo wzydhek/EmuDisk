@@ -21,12 +21,12 @@ namespace EmuDisk
 
         #region Constructors
 
-        public RSDosDirectorEntry()
+        public RSDosDirectoryEntry()
         {
             entry = new byte[0x20];
         }
 
-        public RSDosDirectorEntry(byte[] buffer) : this()
+        public RSDosDirectoryEntry(byte[] buffer) : this()
         {
             if (buffer.Length < 0x20)
             {
