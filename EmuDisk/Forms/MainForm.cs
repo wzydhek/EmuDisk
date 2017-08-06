@@ -29,7 +29,7 @@ namespace EmuDisk
 
             if (cultureInfo == null)
             {
-                this.SetLanguage("es");
+                this.SetLanguage("en");
             }
 
             this.mruManager = new MRUManager();
