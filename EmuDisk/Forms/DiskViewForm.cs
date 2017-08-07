@@ -116,6 +116,69 @@ namespace EmuDisk
             UpdateListView();
         }
 
+        private void treeView_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            if (((e.State & TreeNodeStates.Selected) != 0) && (!treeView.Focused))
+            {
+                e.Node.ForeColor = SystemColors.Window;
+                e.Node.BackColor = SystemColors.Highlight;
+            }
+            else
+                e.DrawDefault = true;
+        }
+
+        private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+                ColumnSortType sorttype = ColumnSortType.Alphanumeric;
+
+                if (DiskFormat is OS9Format)
+                {
+                    switch (e.Column)
+                    {
+                        case 1:
+                            sorttype = ColumnSortType.Numeric;
+                            break;
+                        case 3:
+                        case 4:
+                            sorttype = ColumnSortType.Date;
+                            break;
+                        default:
+                            sorttype = ColumnSortType.Alphanumeric;
+                            break;
+                    }
+                }
+                else if (DiskFormat is RSDosFormat || DiskFormat is DragonDosFormat)
+                {
+                    if (e.Column == 2)
+                        sorttype = ColumnSortType.Numeric;
+                    else
+                        sorttype = ColumnSortType.Alphanumeric;
+                }
+
+                lvwColumnSorter.SortType = sorttype;
+            }
+
+            // Perform the sort with these new sort options.
+            this.listView.Sort();
+        }
+
         #endregion
 
         #region Private Methods
@@ -221,5 +284,6 @@ namespace EmuDisk
         }
 
         #endregion
+
     }
 }
